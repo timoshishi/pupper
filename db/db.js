@@ -2,6 +2,7 @@ const { Pool, Client } = require('pg');
 require('dotenv').config();
 const connectionString = process.env.DB_HOST;
 // THIS LINE SHOULD BE REMOVED IN PRODUCTION!!!!
+
 if (!process.env.DATABASE_URL) process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 
 const pool = new Pool({
