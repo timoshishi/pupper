@@ -1,19 +1,16 @@
 const { Pool, Client } = require('pg');
-require('dotenv').config;
+require('dotenv').config();
 const connectionString = process.env.DB_HOST;
-
-const host = process.env.DB_HOST;
-const password = process.env.DB_PASSWORD;
-const user = process.env.DB_USER;
-const database = process.env.DB_PASSWORD;
-const port = process.env.DB_PORT;
+// THIS LINE SHOULD BE REMOVED IN PRODUCTION!!!!
+if (!process.env.DATABASE_URL) process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 
 const pool = new Pool({
-  connectionString:
-    process.env.DB_URL || 'postgresql://postgres:password@localhost:5432/test',
-  ssl: process.env.DATABASE_URL ? true : false,
+  connectionString: process.env.DATABASE_URL
+    ? process.env.DATABASE_URL
+    : process.env.DATABASE_URL_DEV,
+  ssl: { rejectUnauthorized: false },
 });
-// pool.connect();
+
 pool.on('error', (err, client) => {
   console.error('Unexpected error on idle client', err);
   process.exit(-1);
