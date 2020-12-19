@@ -7,8 +7,7 @@ app.use(require('morgan')('dev'));
 app.use(express.json({ extended: false }));
 
 app.use(express.static(path.join(__dirname, 'client/build')));
-
-app.use('/api/users', require('./routes/users'));
+// app.use('/api/users', require('./routes/users'));
 
 app.get('*', (req, res) =>
   res.sendFile(path.join(`${__dirname}/client/build/index.html`))
