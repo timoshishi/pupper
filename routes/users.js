@@ -6,7 +6,7 @@ router.get('/', async (req, res) => {
   try {
     let count = await pool.query('SELECT * FROM test');
     console.log('u got it');
-    res.json(count);
+    res.json({ msg: count });
   } catch (err) {
     console.error('Error at get users.js', err.message);
     res.json({ error: err.message });
