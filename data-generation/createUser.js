@@ -1,9 +1,8 @@
 const faker = require('faker');
-const { v4: uuidv4, v4 } = require('uuid');
 
-const createUser = () => {
+const createUser = (user_id) => {
   return {
-    user_id: uuidv4,
+    user_id,
     email: faker.internet.email(),
     name: faker.name.findName(),
     phone: faker.phone.phoneNumber(),
@@ -11,4 +10,4 @@ const createUser = () => {
   };
 };
 
-console.log(createUser());
+module.exports = createUser;
