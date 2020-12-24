@@ -39,7 +39,6 @@ const clientOrigins = [
 module.exports = {
   audience,
   domain,
-  serverPort,
   clientOriginUrl,
   clientOrigins,
 };
