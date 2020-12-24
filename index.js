@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const path = require('path');
 const cors = require('cors');
-const { clientOrigins, serverPort } = require('./config/env.dev');
+const { clientOrigins } = require('./config/env.dev');
 
 app.use(cors({ origin: clientOrigins }));
 app.use(require('morgan')('dev'));
@@ -23,6 +23,5 @@ if (process.env.NODE_ENV === 'production') {
     res.sendFile(path.join(`${__dirname}/client/build/index.html`))
   );
 }
-app.listen(serverPort, () =>
-  console.log(`Server started on port: ${serverPort}`)
-);
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => console.log(`Server started on port: ${PORT}`));
