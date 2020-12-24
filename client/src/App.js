@@ -5,9 +5,9 @@ import { NavBar, Footer, Loading } from './components';
 import { Home, Profile, ExternalApi } from './views';
 import ProtectedRoute from './auth/protected-route';
 
-import { Auth0Provider, useAuth0 } from '@auth0/auth0-react';
+import { useAuth0 } from '@auth0/auth0-react';
 
-function App(props) {
+function App() {
   const { isLoading } = useAuth0();
 
   if (isLoading) {
