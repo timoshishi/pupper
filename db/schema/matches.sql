@@ -2,10 +2,17 @@
 
 CREATE TABLE IF NOT EXISTS matches(
   id serial primary key,
-  user_id varchar(100),
-  matched_to varchar(100),
-  date_matched timestamptz
+  user_id int,
+  dog_id int,
+  created_at timestamptz,
+    CONSTRAINT fk_user
+      FOREIGN KEY(user_id)
+        REFERENCES users(user_id),
+    CONSTRAINT fk_dog
+      FOREIGN KEY(dog_id)
+        REFERENCES dogs(dog_id)
 );
+
 
 COPY matches(
   user_id,

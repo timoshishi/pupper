@@ -2,8 +2,8 @@
 
 CREATE TABLE IF NOT EXISTS messages(
   id serial primary key,
-  user_id varchar(100),
-  to_user varchar(100),
+  from_user int,
+  to_user int,
   body varchar(1000),
   created_at timestamptz
 );
