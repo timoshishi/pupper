@@ -12,30 +12,17 @@ const { checkJwt } = require('../../authz/check-jwt');
 
 const usersRouter = express.Router();
 
-/**
- * Controller Definitions
+/* 
+            GET INITIAL USER INFO
+@Input: email returned from Auth0 on pageload
+@Output: UserObject containing profile info and interests or 204 status if user doesn't exist
  */
-
-// GET messages/
-/*
-usersRouter.get('/public-message', (req, res) => {
-  const message = getPublicMessage();
-  res.status(200).send(message);
-});
-
-usersRouter.get('/protected-message', checkJwt, (req, res) => {
-  const message = getProtectedMessage();
-  res.status(200).send(message);
-});
-*/
-
-/* GET INITIAL USER INFO */
 usersRouter.get('/', checkJwt, async (req, res) => {
   try {
     const userId = await getUserByEmail(req.body.email);
     if (user) {
-      getUserInfo(userId);
-      res.json(user);
+      const userInfo = await getUserInfo(Number(req.params.id));
+      return res.json(userInfo);
     } else {
       return res.status(204).send();
     }
@@ -44,7 +31,12 @@ usersRouter.get('/', checkJwt, async (req, res) => {
     return res.json({ msg: err.message });
   }
 });
-/* CREATE USER */
+/* 
+                CREATE USER 
+@Input: Object containing user info to go into user table as well as info for interests table
+@Output: Object containing users profile info and interests
+
+*/
 usersRouter.post('/create', checkJwt, async (req, res) => {
   try {
     const userObj = req.body;
@@ -56,17 +48,25 @@ usersRouter.post('/create', checkJwt, async (req, res) => {
     return res.json({ msg: err.message });
   }
 });
-/* GET USER INFO */
-usersRouter.get('/:id', async (req, res) => {
+
+/* 
+                GET USER INFO 
+@Input: Users id in the req.params
+@Output: Profile info and interests
+*/
+usersRouter.get('/:id', checkJwt, async (req, res) => {
   try {
     const userInfo = await getUserInfo(Number(req.params.id));
-
-    res.json(userInfo);
+    return res.json(userInfo);
   } catch (err) {
     console.error('at /api/users/:id', err.message);
     return res.json({ msg: err.message });
   }
 });
+
+/* Get User Matches */
+usersRouter.get('/matches/:id', checkJwt, async (req, res) => {});
+
 module.exports = {
   usersRouter,
 };

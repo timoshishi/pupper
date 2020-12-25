@@ -3,6 +3,7 @@ const pool = require('../../db/db');
  * Service Methods
  */
 
+/* Called on Page Load, Checks if User Exists */
 const getUserByEmail = async (email) => {
   try {
     const queryString = 'SELECT id FROM users WHERE email = $1';
@@ -12,8 +13,7 @@ const getUserByEmail = async (email) => {
   }
 };
 
-const getUserMessages = async () => {};
-
+/* Get User Profile And Interests */
 const getUserInfo = async (userId) => {
   try {
     const userQueryString =
@@ -38,7 +38,9 @@ const getUserInfo = async (userId) => {
   }
 };
 
-/* CREATE A NEW USER IF DOES NOT EXIST */
+/*
+CREATE A NEW USER IF DOES NOT EXIST 
+*/
 const createUser = async (userObj) => {
   Object.keys(userObj).forEach((key) => {
     if (typeof userObj[key] === 'undefined' || userObj[key] === null) {
@@ -126,21 +128,10 @@ const createUser = async (userObj) => {
   }
 };
 
-/*
-const getPublicMessage = () => {
-  return {
-    message: "The API doesn't require an access token to share this message.",
-  };
-};
-
-const getProtectedMessage = () => {
-  return {
-    message: 'The API successfully validated your access token.',
-  };
-};
-*/
+const getUserMessages = async () => {};
 
 module.exports = {
+  getUserMessages,
   getUserByEmail,
   getUserInfo,
   createUser,
