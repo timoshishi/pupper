@@ -16,5 +16,5 @@ const createInterests = (user_id) => {
     tug_of_war: Math.random() < 0.3 ? 't' : 'f',
   };
 };
-
+console.log(JSON.stringify(createInterests()));
 module.exports = createInterests;

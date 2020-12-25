@@ -24,6 +24,7 @@ messagesRouter.get('/public-message', (req, res) => {
 });
 
 messagesRouter.get('/protected-message', checkJwt, (req, res) => {
+  console.log(req.headers);
   const message = getProtectedMessage();
   res.status(200).send(message);
 });

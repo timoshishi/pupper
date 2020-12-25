@@ -2,9 +2,9 @@ DROP TABLE users;
 
 CREATE TABLE IF NOT EXISTS users(
   user_id serial primary key,
-  google_id numeric,
-  github_id varchar(100),
-  email varchar(100),
+  google_id numeric UNIQUE,
+  github_id varchar(100) UNIQUE,
+  email varchar(100) UNIQUE,
   name varchar(100),
   zip_code int,
   about varchar(1000),
