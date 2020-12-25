@@ -4,7 +4,7 @@
 
 const express = require('express');
 const { getPublicMessage, getProtectedMessage } = require('./messages.service');
-const { checkJwt } = require('../authz/check-jwt');
+const { checkJwt } = require('../../authz/check-jwt');
 
 /**
  * Router Definition

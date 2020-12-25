@@ -1,25 +1,17 @@
 DROP TABLE users;
 
 CREATE TABLE IF NOT EXISTS users(
-  user_id varchar(100),
+  user_id serial primary key,
+  google_id numeric,
+  github_id varchar(100),
   email varchar(100),
   name varchar(100),
-  phone varchar(20),
+  zip_code int,
+  about varchar(1000),
+  summary varchar(100),
+  photos text[],
   created_at timestamptz,
-  PRIMARY KEY(user_id)
+  last_login timestamptz
 );
-
-CREATE INDEX idx_user_id on users(user_id);
-
-COPY users(
-  user_id,
-  email,
-  name,
-  phone,
-  created_at
-) 
-FROM 'C:\Users\timfr\Documents\github\hackreactor\puppr\data-generation\dummy\user.csv'
-DELIMITER ','
-CSV HEADER;
 
 select * from users;

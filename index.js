@@ -9,7 +9,7 @@ app.use(require('morgan')('dev'));
 app.use(express.json({ extended: false }));
 
 const apiRouter = express.Router();
-const { messagesRouter } = require('./messages/messages.router');
+const { messagesRouter } = require('./routes/messages/messages.router');
 
 app.use('/api', apiRouter);
 apiRouter.use('/messages', messagesRouter);

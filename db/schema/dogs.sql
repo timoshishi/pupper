@@ -1,8 +1,7 @@
 --DROP TABLE dogs;
 
 CREATE TABLE IF NOT EXISTS dogs(
-  id serial primary key,
-  user_id varchar,
+  dog_id serial primary key,
   name varchar(100),
   breed varchar(100),
   color varchar(100),
@@ -11,8 +10,10 @@ CREATE TABLE IF NOT EXISTS dogs(
   about varchar(1000),
   title varchar(100),
   zip_code varchar(100),
-  photos text[9]
+  photos text[9],
+  created_at timestamptz
 );
+
 
 
 COPY dogs(

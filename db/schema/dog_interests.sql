@@ -1,9 +1,9 @@
 --DROP TABLE interests;
 
 
-CREATE TABLE IF NOT EXISTS interests(
+CREATE TABLE IF NOT EXISTS dog_interests(
   id serial primary key,
-  user_id int,
+  dog_id int,
   walkies boolean,
   scritches boolean,
   the_beach boolean,
@@ -14,9 +14,9 @@ CREATE TABLE IF NOT EXISTS interests(
   cuddles boolean,
   wrestling boolean,
   tug_of_war boolean,
-    CONSTRAINT fk_user
-      FOREIGN KEY(user_id)
-        REFERENCES users(user_id)
+    CONSTRAINT fk_dog
+      FOREIGN KEY(dog_id)
+        REFERENCES dogs(dog_id)
 );
 COPY interests(
   user_id,
