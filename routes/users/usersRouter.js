@@ -17,7 +17,7 @@ const usersRouter = express.Router();
 @Input: email returned from Auth0 on pageload
 @Output: UserObject containing profile info and interests or 204 status if user doesn't exist
  */
-usersRouter.get('/', checkJwt, async (req, res) => {
+usersRouter.post('/', checkJwt, async (req, res) => {
   try {
     const userId = await getUserByEmail(req.body.email);
     if (user) {
@@ -28,7 +28,7 @@ usersRouter.get('/', checkJwt, async (req, res) => {
     }
   } catch (err) {
     console.error('at /api/users/', err.message);
-    return res.json({ msg: err.message });
+    return res.status(204).json({ msg: err.message });
   }
 });
 
@@ -38,8 +38,9 @@ usersRouter.get('/', checkJwt, async (req, res) => {
   @Output: Object containing users profile info and interests
   */
 usersRouter.post('/create', checkJwt, async (req, res) => {
+  console.log('req.body', req.body);
   try {
-    const userObj = req.body;
+    const { userObj } = req.body;
     const userId = await createUser(userObj);
     const userInfo = await getUserInfo(userId);
     return res.json(userInfo);

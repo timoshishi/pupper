@@ -47,9 +47,8 @@ const createUser = async (userObj) => {
       userObj[key === 'NULL'];
     }
   });
+  console.log({ userObj });
   const {
-    google_id,
-    github_id,
     email,
     name,
     zip_code,
@@ -88,15 +87,13 @@ const createUser = async (userObj) => {
 
   try {
     const usersInsertQuery =
-      'INSERT INTO users(google_id, github_id, email, name, zip_code, about, summary, photos, created_at, last_login) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING user_id';
+      'INSERT INTO users(email, name, zip_code, about, summary, photos, created_at, last_login) VALUES($1, $2, $3, $4, $5, $6, $7, $8) RETURNING user_id';
 
     const interestsInsertQuery =
       'INSERT INTO interests(user_id, walkies, scritches, the_beach, playing_fetch, nap_time, running, frolicking, cuddles, wrestling, tug_of_war) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)';
 
     const user_id = await pool
       .query(usersInsertQuery, [
-        google_id,
-        github_id,
         email,
         name,
         zip_code,
