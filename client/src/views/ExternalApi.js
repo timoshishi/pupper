@@ -40,33 +40,27 @@ const ExternalApi = () => {
   };
 
   return (
-    <div className='container'>
+    <div>
       <h1>External API</h1>
       <p>
         Use these buttons to call an external API. The protected API call has an
         access token in its authorization header. The API server will validate
         the access token using the Auth0 Audience value.
       </p>
-      <div
-        className='btn-group mt-5'
-        role='group'
-        aria-label='External API Requests Examples'>
-        <button type='button' className='btn btn-primary' onClick={callApi}>
+      <div role='group' aria-label='External API Requests Examples'>
+        <button type='button' onClick={callApi}>
           Get Public Message
         </button>
-        <button
-          type='button'
-          className='btn btn-primary'
-          onClick={callSecureApi}>
+        <button type='button' onClick={callSecureApi}>
           Get Protected Message
         </button>
       </div>
       {message && (
-        <div className='mt-5'>
-          <h6 className='muted'>Result</h6>
-          <div className='container-fluid'>
-            <div className='row'>
-              <code className='col-12 text-light bg-dark p-4'>{message}</code>
+        <div>
+          <h6>Result</h6>
+          <div>
+            <div>
+              <code>{message}</code>
             </div>
           </div>
         </div>

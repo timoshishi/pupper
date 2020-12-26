@@ -1,18 +1,17 @@
-import React from "react";
+import React from 'react';
 
 const HomeContent = () => (
-  <div className="next-steps">
-    <h2 className="my-5 text-center">What can I do next?</h2>
+  <div>
+    <h2>What can I do next?</h2>
 
-    <div className="row">
-      <div className="col-md-5 mb-4">
-        <h6 className="mb-3">
+    <div>
+      <div>
+        <h6 className=''>
           <a
-            target="_blank"
-            rel="noopener noreferrer"
-            href="https://auth0.com/docs/connections"
-          >
-            <i className="fas fa-link mr-2" />
+            target='_blank'
+            rel='noopener noreferrer'
+            href='https://auth0.com/docs/connections'>
+            <i className='fas fa-link mr-2' />
             Configure other identity providers
           </a>
         </h6>
@@ -23,16 +22,15 @@ const HomeContent = () => (
         </p>
       </div>
 
-      <div className="col-md" />
+      <div />
 
-      <div className="col-md-5 mb-4">
-        <h6 className="mb-3">
+      <div>
+        <h6>
           <a
-            target="_blank"
-            rel="noopener noreferrer"
-            href="https://auth0.com/docs/multifactor-authentication"
-          >
-            <i className="fas fa-link mr-2" />
+            target='_blank'
+            rel='noopener noreferrer'
+            href='https://auth0.com/docs/multifactor-authentication'>
+            <i className='fas fa-link mr-2' />
             Enable Multi-Factor Authentication
           </a>
         </h6>
@@ -45,15 +43,14 @@ const HomeContent = () => (
       </div>
     </div>
 
-    <div className="row">
-      <div className="col-md-5 mb-4">
-        <h6 className="mb-3">
+    <div>
+      <div>
+        <h6>
           <a
-            target="_blank"
-            rel="noopener noreferrer"
-            href="https://auth0.com/docs/anomaly-detection"
-          >
-            <i className="fas fa-link mr-2" />
+            target='_blank'
+            rel='noopener noreferrer'
+            href='https://auth0.com/docs/anomaly-detection'>
+            <i className='fas fa-link mr-2' />
             Anomaly Detection
           </a>
         </h6>
@@ -64,16 +61,15 @@ const HomeContent = () => (
         </p>
       </div>
 
-      <div className="col-md" />
+      <div />
 
-      <div className="col-md-5 mb-4">
-        <h6 className="mb-3">
+      <div>
+        <h6>
           <a
-            target="_blank"
-            rel="noopener noreferrer"
-            href="https://auth0.com/docs/rules"
-          >
-            <i className="fas fa-link mr-2" />
+            target='_blank'
+            rel='noopener noreferrer'
+            href='https://auth0.com/docs/rules'>
+            <i className='fas fa-link mr-2' />
             Learn About Rules
           </a>
         </h6>
