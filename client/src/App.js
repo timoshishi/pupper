@@ -1,8 +1,8 @@
 import React from 'react';
 import './App.css';
 import { Switch, Route, withRouter } from 'react-router-dom';
-import { NavBar, Footer, Loading } from './components';
-import { Home, ExternalApi, Landing } from './views';
+import { NavBar, Footer, Loading } from './components/index.js';
+import { Home, ExternalApi, Landing } from './views/index.js';
 import ProtectedRoute from './auth/ProtectedRoute';
 import { useAuth0 } from '@auth0/auth0-react';
 import { Container } from '@material-ui/core';
