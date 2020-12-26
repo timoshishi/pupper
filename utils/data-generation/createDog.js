@@ -1,6 +1,6 @@
 const faker = require('faker');
 const { v4: uuidv4 } = require('uuid');
-const { zipCodeMaker, photoStringMaker } = require('../utils/dataGen.js');
+const { zipCodeMaker, photoStringMaker } = require('./dataGen.js');
 const dogNames = [
   'Fido',
   'Spot',

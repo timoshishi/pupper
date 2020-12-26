@@ -1,5 +1,6 @@
-import ExternalApi from "./external-api";
-import Home from "./home";
-import Profile from "./profile";
+import ExternalApi from './ExternalApi';
+import Home from './Home';
+import Landing from './Landing';
+import Profile from './Profile';
 
-export { ExternalApi, Home, Profile };
+export { ExternalApi, Home, Landing, Profile };

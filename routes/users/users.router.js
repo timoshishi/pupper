@@ -4,7 +4,7 @@
 
 const express = require('express');
 const { getUserByEmail, createUser, getUserInfo } = require('./users.service');
-const { checkJwt } = require('../../authz/check-jwt');
+const { checkJwt } = require('../../middleware/check-jwt');
 
 /**
  * Router Definition
@@ -31,12 +31,12 @@ usersRouter.get('/', checkJwt, async (req, res) => {
     return res.json({ msg: err.message });
   }
 });
-/* 
-                CREATE USER 
-@Input: Object containing user info to go into user table as well as info for interests table
-@Output: Object containing users profile info and interests
 
-*/
+/* 
+  CREATE USER 
+  @Input: Object containing user info to go into user table as well as info for interests table
+  @Output: Object containing users profile info and interests
+  */
 usersRouter.post('/create', checkJwt, async (req, res) => {
   try {
     const userObj = req.body;
