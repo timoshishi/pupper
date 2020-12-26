@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 import { Switch, Route, withRouter } from 'react-router-dom';
 import { NavBar, Footer, Loading } from './components';
-import { Home, ExternalApi, Landing, Profile } from './views';
+import { Home, ExternalApi, Landing } from './views';
 import ProtectedRoute from './auth/ProtectedRoute';
 import { useAuth0 } from '@auth0/auth0-react';
 import { Container } from '@material-ui/core';
@@ -20,7 +20,6 @@ function App() {
       <Switch>
         <Route path='/' exact component={!isAuthenticated ? Landing : Home} />
         <ProtectedRoute path='/' exact component={Home} />
-        <ProtectedRoute path='/profile' component={Profile} />
         <ProtectedRoute path='/external-api' component={ExternalApi} />
       </Switch>
       <Footer />
