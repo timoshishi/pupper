@@ -1,6 +1,6 @@
-import ExternalApi from './ExternalApi';
-import Home from './Home';
-import Landing from './Landing';
+import ExternalApi from './ExternalApi.js';
+import Home from './Home.js';
+import Landing from './Landing.js';
 // import Profile from './Profile';
 
 export { ExternalApi, Home, Landing };
