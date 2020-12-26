@@ -3,7 +3,7 @@ import './App.css';
 import { Switch, Route, withRouter } from 'react-router-dom';
 import { NavBar, Footer, Loading } from './components/index.js';
 import Landing from './views/Landing';
-import Home from './views/Home';
+import Home from './Home';
 import ExternalApi from './views/ExternalApi';
 import ProtectedRoute from './auth/ProtectedRoute';
 import { useAuth0 } from '@auth0/auth0-react';
