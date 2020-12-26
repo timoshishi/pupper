@@ -8,7 +8,7 @@ import { useAuth0 } from '@auth0/auth0-react';
 import { Container } from '@material-ui/core';
 
 function App() {
-  const { isLoading } = useAuth0();
+  const { isLoading, isAuthenticated } = useAuth0();
 
   if (isLoading) {
     return <Loading />;
@@ -18,9 +18,9 @@ function App() {
     <Container>
       <NavBar />
       <Switch>
-        <Route path='/' exact component={Landing} />
+        <Route path='/' exact component={!isAuthenticated ? Landing : Home} />
+        <ProtectedRoute path='/' exact component={Home} />
         <ProtectedRoute path='/profile' component={Profile} />
-        <ProtectedRoute path='/home' exact component={Home} />
         <ProtectedRoute path='/external-api' component={ExternalApi} />
       </Switch>
       <Footer />
