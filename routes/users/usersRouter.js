@@ -3,7 +3,7 @@
  */
 
 const express = require('express');
-const { getUserByEmail, createUser, getUserInfo } = require('./users.service');
+const { getUserByEmail, createUser, getUserInfo } = require('./usersService');
 const { checkJwt } = require('../../middleware/check-jwt');
 
 /**
