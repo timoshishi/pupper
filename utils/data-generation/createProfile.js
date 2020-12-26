@@ -1,5 +1,5 @@
 const faker = require('faker');
-const { zipCodeMaker, photoStringMaker } = require('../utils/dataGen.js');
+const { zipCodeMaker, photoStringMaker } = require('./dataGen.js');
 const createProfile = (user_id) => ({
   user_id,
   about: faker.lorem.sentences(),

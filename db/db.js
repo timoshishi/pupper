@@ -4,7 +4,7 @@ require('dotenv').config();
 
 if (!process.env.DATABASE_URL) {
   // THIS LINE SHOULD BE REMOVED IN PRODUCTION!!!!
-  process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
+  // process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
   pool = new Pool({
     user: 'postgres',
     password: process.env.DB_PASSWORD_DEV,

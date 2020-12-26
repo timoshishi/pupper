@@ -1,9 +1,9 @@
---DROP TABLE interests;
+DROP TABLE interests;
 
 
 CREATE TABLE IF NOT EXISTS interests(
   id serial primary key,
-  user_id int,
+  user_id int UNIQUE,
   walkies boolean,
   scritches boolean,
   the_beach boolean,

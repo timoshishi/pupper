@@ -9,10 +9,12 @@ app.use(require('morgan')('dev'));
 app.use(express.json({ extended: false }));
 
 const apiRouter = express.Router();
-const { messagesRouter } = require('./routes/messages/messages.router');
+const { messagesRouter } = require('./routes/messages/messages.router.js');
+const { usersRouter } = require('./routes/users/usersRouter.js');
 
 app.use('/api', apiRouter);
 apiRouter.use('/messages', messagesRouter);
+apiRouter.use('/users', usersRouter);
 
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, 'client/build')));
