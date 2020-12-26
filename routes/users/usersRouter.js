@@ -12,7 +12,7 @@ const { checkJwt } = require('../../middleware/check-jwt');
 
 const usersRouter = express.Router();
 
-/* 
+/*
             GET INITIAL USER INFO
 @Input: email returned from Auth0 on pageload
 @Output: UserObject containing profile info and interests or 204 status if user doesn't exist
@@ -21,7 +21,7 @@ usersRouter.get('/', checkJwt, async (req, res) => {
   try {
     const userId = await getUserByEmail(req.body.email);
     if (user) {
-      const userInfo = await getUserInfo(Number(req.params.id));
+      const userInfo = await getUserInfo(+req.params.id);
       return res.json(userInfo);
     } else {
       return res.status(204).send();
@@ -32,8 +32,8 @@ usersRouter.get('/', checkJwt, async (req, res) => {
   }
 });
 
-/* 
-  CREATE USER 
+/*
+  CREATE USER
   @Input: Object containing user info to go into user table as well as info for interests table
   @Output: Object containing users profile info and interests
   */
@@ -49,14 +49,14 @@ usersRouter.post('/create', checkJwt, async (req, res) => {
   }
 });
 
-/* 
-                GET USER INFO 
+/*
+                GET USER INFO
 @Input: Users id in the req.params
 @Output: Profile info and interests
 */
 usersRouter.get('/:id', checkJwt, async (req, res) => {
   try {
-    const userInfo = await getUserInfo(Number(req.params.id));
+    const userInfo = await getUserInfo(+req.params.id);
     return res.json(userInfo);
   } catch (err) {
     console.error('at /api/users/:id', err.message);
@@ -65,7 +65,7 @@ usersRouter.get('/:id', checkJwt, async (req, res) => {
 });
 
 /* Get User Matches */
-usersRouter.get('/matches/:id', checkJwt, async (req, res) => {});
+usersRouter.get('/matches/:id', checkJwt, async (req, res) => { });
 
 module.exports = {
   usersRouter,

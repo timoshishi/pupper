@@ -17,7 +17,8 @@ const getUserByEmail = async (email) => {
 const getUserInfo = async (userId) => {
   try {
     const userQueryString =
-      'SELECT * FROM users name, zip_code, about, summary, photos, created_at, last_login WHERE user_id = $1';
+      // 'SELECT * FROM users name, zip_code, about, summary, photos, created_at, last_login WHERE user_id = $1';
+      'SELECT name, zip_code, about, summary, photos, created_at, last_login FROM users  WHERE user_id = $1';
     const interestsQueryString =
       'SELECT walkies, scritches, the_beach, playing_fetch, nap_time, running, frolicking, cuddles, wrestling, tug_of_war FROM interests WHERE user_id = $1';
 
@@ -39,7 +40,7 @@ const getUserInfo = async (userId) => {
 };
 
 /*
-CREATE A NEW USER IF DOES NOT EXIST 
+CREATE A NEW USER IF DOES NOT EXIST
 */
 const createUser = async (userObj) => {
   Object.keys(userObj).forEach((key) => {
@@ -72,7 +73,7 @@ const createUser = async (userObj) => {
     wrestling,
     tug_of_war,
   } = interests;
-
+  //  you can do this work in SQL query: https://www.postgresql.org/docs/9.3/functions-json.html
   let photoArr = '{';
   if (photos.length && Array.isArray(photos)) {
     photos.forEach((url, i) => {
@@ -128,7 +129,7 @@ const createUser = async (userObj) => {
   }
 };
 
-const getUserMessages = async () => {};
+const getUserMessages = async () => { };
 
 module.exports = {
   getUserMessages,
