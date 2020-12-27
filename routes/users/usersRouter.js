@@ -72,7 +72,6 @@ const upload = require('./uploadPhotos');
 const singleUpload = upload.single('image');
 
 usersRouter.post('/photos/:id', checkJwt, async (req, res) => {
-  console.log(req.file);
   try {
     singleUpload(req, res, function (err) {
       if (err) {
@@ -81,9 +80,7 @@ usersRouter.post('/photos/:id', checkJwt, async (req, res) => {
         });
       }
       return res.json({ msg: req.file.location });
-      // return res.json({ imageUrl: req.file.location });
     });
-    // return res.json({ id: req.params.id });
   } catch (err) {
     console.error('at POST /api/users/photos/:id', err.message);
     return res.status(400).json({ msg: err.message });

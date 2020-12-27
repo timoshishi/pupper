@@ -19,28 +19,122 @@
   [Guide](https://flaviocopes.com/express-forms-files/)** to handle parsing the
   files on the server.
 
-route.get('/signed-form-upload', async (req, res) => { AWS.config.update({
-accessKeyId: 'AAAAAAAAAAAAAAAA', // Generated on step 1 secretAccessKey:
-'J21//xxxxxxxxxxx', // Generated on step 1 region: 'eu-west-1', // Must be the
-same as your bucket signatureVersion: 'v4', }); const params = { Bucket:
-'your-bucket-name', Key: 'my-awesome-object.webm', Fields: { Key:
-'my-awesome-object.webm', }, }; const options = { signatureVersion: 'v4',
-region: 'eu-west-1', // same as your bucket
+## Server Side
 
-    endpoint = new AWS.Endpoint('https://your-bucket-name.s3.amazonaws.com'),
-    useAccelerateEndpoint = false,
-    s3ForcePathStyle = true,  }
+### In users router
 
-const client = new AWS.S3(options); const form = await (new Promise((resolve,
-reject) => {
+```javascript
+/* Upload Photos Route */
+const upload = require('./uploadPhotos');
+const singleUpload = upload.single('image');
 
-    client.createPresignedPost(params, (err, data) => {
+usersRouter.post('/photos/:id', checkJwt, async (req, res) => {
+  try {
+    singleUpload(req, res, function (err) {
       if (err) {
-        reject(err)
-      } else {
-        resolve(data)
+        return res.status(422).send({
+          errors: [{ title: 'Image Upload Error', detail: err.message }],
+        });
       }
+      return res.json({ msg: req.file.location });
     });
+  } catch (err) {
+    console.error('at POST /api/users/photos/:id', err.message);
+    return res.status(400).json({ msg: err.message });
+  }
+});
+```
 
-})); return res.json({ form: { ...form, url: config.aws.s3.AWS_S3_ENDPOINT } })
-}
+### In uploadPhotos.js
+
+Utilizes the multer library and aws-sdk to take care of the complicated bits
+
+```javascript
+const aws = require('aws-sdk');
+const multer = require('multer');
+const multerS3 = require('multer-s3');
+
+aws.config.update({
+  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+  accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+  region: 'us-east-1',
+});
+const s3 = new aws.S3();
+const fileFilter = (req, file, cb) => {
+  if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
+    cb(null, true);
+  } else {
+    cb(new Error('Invalid file type, only JPEG and PNG is allowed!'), false);
+  }
+};
+
+const upload = multer({
+  fileFilter,
+  storage: multerS3({
+    acl: 'public-read',
+    s3,
+    bucket: 'puppr-photos',
+    metadata: function (req, file, cb) {
+      cb(null, { fieldName: 'TESTING_METADATA' });
+    },
+    key: function (req, file, cb) {
+      const ext = file.mimetype.split('/')[1];
+      cb(null, `${req.params.id}-${Date.now()}.${ext}`);
+    },
+  }),
+});
+
+module.exports = upload;
+```
+
+## Client Side in a component
+
+### Function for uploading on change
+
+**Returns the Url of the image after it has been uploaded**
+
+```javascript
+const userContext = useContext(UserContext);
+const { userId } = userContext;
+const { getAccessTokenSilently } = useAuth0();
+
+const handleImageUpload = async (e) => {
+  try {
+    const files = e.target.files;
+    const formData = new FormData();
+    formData.append('image', files[0]);
+
+    const token = await getAccessTokenSilently();
+    const options = {
+      method: 'POST',
+      body: formData,
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+
+    const response = await fetch(
+      `${serverUrl}/api/users/photos/${userId}`,
+      options
+    );
+    const url = await response.json();
+    return url;
+  } catch (err) {
+    return console.error('@handleImageUpload', err.message);
+  }
+};
+```
+
+### JSX
+
+```javascript
+<div>
+  <h2>What can I do next?</h2>
+  <input
+    type='file'
+    id='file-upload'
+    onChange={handleImageUpload}
+    accept='image/x-png,image/jpeg'
+  />
+</div>
+```

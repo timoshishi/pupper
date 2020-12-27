@@ -8,7 +8,6 @@ aws.config.update({
   region: 'us-east-1',
 });
 const s3 = new aws.S3();
-console.log('uploadFile');
 const fileFilter = (req, file, cb) => {
   if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
     cb(null, true);
@@ -27,7 +26,8 @@ const upload = multer({
       cb(null, { fieldName: 'TESTING_METADATA' });
     },
     key: function (req, file, cb) {
-      cb(null, Date.now().toString());
+      const ext = file.mimetype.split('/')[1];
+      cb(null, `${req.params.id}-${Date.now()}.${ext}`);
     },
   }),
 });

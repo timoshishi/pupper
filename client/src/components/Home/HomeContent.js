@@ -10,14 +10,11 @@ const HomeContent = () => {
 
   const handleImageUpload = async (e) => {
     try {
-      const token = await getAccessTokenSilently();
       const files = e.target.files;
-      console.log(files);
       const formData = new FormData();
-
       formData.append('image', files[0]);
-      console.log('etarte', formData.getAll('image'));
 
+      const token = await getAccessTokenSilently();
       const options = {
         method: 'POST',
         body: formData,
@@ -26,22 +23,13 @@ const HomeContent = () => {
         },
       };
 
-      // const response = await axios.post(
-      //   `${serverUrl}/api/users/photos/${userId}`,
-      //   formData,
-      //   {
-      //     headers: {
-      //       Authorization: `Bearer ${token}`,
-      //       'Content-Type': 'application/octet-stream',
-      //     },
-      //   }
-      // );
       const response = await fetch(
         `${serverUrl}/api/users/photos/${userId}`,
         options
       );
-      const data = await response.json();
-      await console.log({ data });
+      const url = await response.json();
+      console.log(url.msg);
+      return url.msg;
     } catch (err) {
       return console.error('@handleImageUpload', err.message);
     }
@@ -50,7 +38,12 @@ const HomeContent = () => {
   return (
     <div>
       <h2>What can I do next?</h2>
-      <input type='file' id='file-upload' onChange={handleImageUpload} />
+      <input
+        type='file'
+        id='file-upload'
+        onChange={handleImageUpload}
+        accept='image/x-png,image/jpeg'
+      />
 
       <div>
         <div>
