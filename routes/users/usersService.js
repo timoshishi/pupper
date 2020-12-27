@@ -1,7 +1,4 @@
 const pool = require('../../db/db');
-/**
- * Service Methods
- */
 
 /* Called on Page Load, Checks if User Exists */
 const getUserByEmail = async (email) => {
@@ -10,7 +7,7 @@ const getUserByEmail = async (email) => {
     const user = await pool.query(queryString, [email]);
     return user.rows[0].user_id;
   } catch (err) {
-    console.error('at getUserByEmail', err.message);
+    return console.error('at getUserByEmail', err.message);
   }
 };
 
@@ -32,7 +29,7 @@ const getUserInfo = async (userId) => {
       interests,
     };
   } catch (err) {
-    console.error('at getUserInfo', err.message);
+    return console.error('at getUserInfo', err.message);
   }
 };
 
@@ -45,42 +42,6 @@ const createUser = async (userObj) => {
       userObj[key === 'NULL'];
     }
   });
-  const {
-    email,
-    name,
-    zip_code,
-    about,
-    summary,
-    photos,
-    created_at,
-    last_login,
-    interests,
-  } = userObj;
-  const {
-    walkies,
-    scritches,
-    the_beach,
-    playing_fetch,
-    nap_time,
-    running,
-    frolicking,
-    cuddles,
-    wrestling,
-    tug_of_war,
-  } = interests;
-
-  let photoArr = '{';
-  if (photos.length && Array.isArray(photos)) {
-    photos.forEach((url, i) => {
-      if (i < photos.length - 1) {
-        photoArr += `${url}, `;
-      } else {
-        photoArr += `${url}}`;
-      }
-    });
-  } else {
-    photoArr = photos;
-  }
 
   try {
     const usersInsertQuery =
@@ -89,36 +50,34 @@ const createUser = async (userObj) => {
     const interestsInsertQuery =
       'INSERT INTO interests(user_id, walkies, scritches, the_beach, playing_fetch, nap_time, running, frolicking, cuddles, wrestling, tug_of_war) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)';
 
-    const user_id = await pool
-      .query(usersInsertQuery, [
-        email,
-        name,
-        zip_code,
-        about,
-        summary,
-        photoArr,
-        created_at,
-        last_login,
-      ])
-      .then((res) => res.rows[0].user_id)
-      .catch((err) => console.log('userId query', err.message));
+    const { rows } = await pool.query(usersInsertQuery, [
+      userObj.email,
+      userObj.name,
+      userObj.zip_code,
+      userObj.about,
+      userObj.summary,
+      userObj.photos,
+      userObj.created_at,
+      userObj.last_login,
+    ]);
+    const { user_id } = await rows[0];
 
     await pool.query(interestsInsertQuery, [
-      user_id,
-      walkies,
-      scritches,
-      the_beach,
-      playing_fetch,
-      nap_time,
-      running,
-      frolicking,
-      cuddles,
-      wrestling,
-      tug_of_war,
+      userObj.interests.user_id,
+      userObj.interests.walkies,
+      userObj.interests.scritches,
+      userObj.interests.the_beach,
+      userObj.interests.playing_fetch,
+      userObj.interests.nap_time,
+      userObj.interests.running,
+      userObj.interests.frolicking,
+      userObj.interests.cuddles,
+      userObj.interests.wrestling,
+      userObj.interests.tug_of_war,
     ]);
     return user_id;
   } catch (err) {
-    console.error('at createUser', err.message);
+    return console.error('at createUser', err.message);
   }
 };
 
