@@ -8,9 +8,11 @@ import {
   CreateProfile1,
   CreateProfile2,
   CreateProfile3,
+  CreateProfile4,
+  Stepper,
 } from '../components/CreateProfile';
 
-const CreateProfile = (props) => {
+const CreateProfile = () => {
   const { user } = useAuth0();
   const history = useHistory();
   const userContext = useContext(UserContext);
@@ -18,7 +20,7 @@ const CreateProfile = (props) => {
   const [userInfo, setUserInfo] = useState({
     email: user.email,
     name: '',
-    zip_code: '',
+    zip_code: 0,
     about: '',
     summary: '',
     photos: [],
@@ -55,7 +57,7 @@ const CreateProfile = (props) => {
     });
   };
 
-  const onSubmit = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const userInterests = {};
     Object.keys(interests).forEach((interest) =>
@@ -69,7 +71,6 @@ const CreateProfile = (props) => {
     };
     try {
       const res = await createUser(userObj);
-      await console.log({ res });
       history.push('/home');
     } catch (err) {
       console.error('Error at CreateProfile handleSubmit');
@@ -80,12 +81,10 @@ const CreateProfile = (props) => {
     <Box display='flex'>
       <Box m='auto' style={{ width: '80vw' }}>
         <h1>Create Profile</h1>
-        <form noValidate autoComplete='off' onSubmit={onSubmit}>
+        <form noValidate autoComplete='off'>
           <div>
             {step === 1 && (
               <CreateProfile1
-                step={step}
-                setStep={setStep}
                 handleFormData={handleFormData}
                 name={userInfo.name}
                 zip_code={userInfo.zip_code}
@@ -94,8 +93,6 @@ const CreateProfile = (props) => {
 
             {step === 2 && (
               <CreateProfile2
-                step={step}
-                setStep={setStep}
                 handleFormData={handleFormData}
                 about={userInfo.about}
                 summary={userInfo.summary}
@@ -103,19 +100,22 @@ const CreateProfile = (props) => {
             )}
             {step === 3 && (
               <CreateProfile3
-                step={step}
-                setStep={setStep}
                 handleInterests={handleInterests}
                 interests={interests}
               />
             )}
+            {step === 4 && <CreateProfile4 />}
+            <Stepper
+              step={step}
+              setStep={setStep}
+              maxStep={3}
+              handleSubmit={handleSubmit}
+            />
           </div>
         </form>
       </Box>
     </Box>
   );
 };
-
-CreateProfile.propTypes = {};
 
 export default CreateProfile;

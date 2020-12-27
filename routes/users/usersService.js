@@ -6,8 +6,9 @@ const pool = require('../../db/db');
 /* Called on Page Load, Checks if User Exists */
 const getUserByEmail = async (email) => {
   try {
-    const queryString = 'SELECT id FROM users WHERE email = $1';
+    const queryString = 'SELECT user_id FROM users WHERE email = $1';
     const user = await pool.query(queryString, [email]);
+    return user.rows[0].user_id;
   } catch (err) {
     console.error('at getUserByEmail', err.message);
   }
@@ -16,20 +17,17 @@ const getUserByEmail = async (email) => {
 /* Get User Profile And Interests */
 const getUserInfo = async (userId) => {
   try {
-    const userQueryString =
-      'SELECT * FROM users name, zip_code, about, summary, photos, created_at, last_login WHERE user_id = $1';
+    const userQueryString = 'SELECT * FROM users WHERE user_id = $1';
     const interestsQueryString =
       'SELECT walkies, scritches, the_beach, playing_fetch, nap_time, running, frolicking, cuddles, wrestling, tug_of_war FROM interests WHERE user_id = $1';
 
-    const res = await pool.query('SELECT * FROM users WHERE user_id = $1', [
-      userId,
-    ]);
+    const res = await pool.query(userQueryString, [userId]);
     const userInfo = res.rows[0];
 
     const interestsRes = await pool.query(interestsQueryString, [userId]);
     const interests = interestsRes.rows[0];
+
     return {
-      userId,
       ...userInfo,
       interests,
     };
@@ -47,7 +45,6 @@ const createUser = async (userObj) => {
       userObj[key === 'NULL'];
     }
   });
-  console.log({ userObj });
   const {
     email,
     name,

@@ -18,10 +18,11 @@ const usersRouter = express.Router();
 @Output: UserObject containing profile info and interests or 204 status if user doesn't exist
  */
 usersRouter.post('/', checkJwt, async (req, res) => {
+  console.log(req.body);
   try {
     const userId = await getUserByEmail(req.body.email);
-    if (user) {
-      const userInfo = await getUserInfo(Number(req.params.id));
+    if (userId) {
+      const userInfo = await getUserInfo(userId);
       return res.json(userInfo);
     } else {
       return res.status(204).send();
@@ -38,10 +39,8 @@ usersRouter.post('/', checkJwt, async (req, res) => {
   @Output: Object containing users profile info and interests
   */
 usersRouter.post('/create', checkJwt, async (req, res) => {
-  console.log('req.body', req.body);
   try {
-    const { userObj } = req.body;
-    const userId = await createUser(userObj);
+    const userId = await createUser(req.body);
     const userInfo = await getUserInfo(userId);
     return res.json(userInfo);
   } catch (err) {

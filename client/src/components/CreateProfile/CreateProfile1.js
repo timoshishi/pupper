@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { TextField, Button, Box } from '@material-ui/core';
-const CreateProfile1 = ({ step, setStep, handleFormData, name, zip_code }) => {
+import { TextField } from '@material-ui/core';
+const CreateProfile1 = ({ handleFormData, name, zip_code }) => {
   return (
     <>
       <TextField
@@ -26,16 +26,11 @@ const CreateProfile1 = ({ step, setStep, handleFormData, name, zip_code }) => {
         value={zip_code}
         onChange={handleFormData}
       />
-      <Box display='flex' justifyContent='flex-end'>
-        <Button onClick={() => setStep(step + 1)}>Next</Button>
-      </Box>
     </>
   );
 };
 
 CreateProfile1.propTypes = {
-  step: PropTypes.number.isRequired,
-  setStep: PropTypes.func.isRequired,
   handleFormData: PropTypes.func.isRequired,
   name: PropTypes.string.isRequired,
 };

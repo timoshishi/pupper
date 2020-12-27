@@ -3,6 +3,7 @@ import UserContext from './userContext';
 import userReducer from './userReducer';
 import { useAuth0 } from '@auth0/auth0-react';
 import axios from 'axios';
+import { GET_USER_INFO, GET_USER_ID } from '../types';
 // import { GET_USER_INFO } from '../types';
 const serverUrl = process.env.REACT_APP_SERVER_URL;
 
@@ -17,19 +18,26 @@ const UserState = (props) => {
   const [state, dispatch] = useReducer(userReducer, initialState);
 
   const getUserId = async (email) => {
+    console.log({ email });
     try {
       const token = await getAccessTokenSilently();
-
+      console.log({ token });
       const options = {
         method: 'POST',
         headers: {
           Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify({ email: email }),
       };
-
       const response = await fetch(`${serverUrl}/api/users/`, options);
-      await console.log('response', response);
+      const data = await response.json();
+
+      await console.log({ data });
+      await dispatch({
+        type: GET_USER_INFO,
+        payload: data,
+      });
       return response;
     } catch (err) {
       console.error('Error @ UserState getUserId', err.message);
@@ -39,28 +47,23 @@ const UserState = (props) => {
   const createUser = async (userObj) => {
     try {
       const token = await getAccessTokenSilently();
-      userObj = JSON.stringify(userObj);
-      console.log('userObj', userObj);
-      // const options = {
-      //   method: 'POST',
-      //   headers: {
-      //     Authorization: `Bearer ${token}`,
-      //   },
-      //   body: JSON.stringify({ userObj: userObj }),
-      // };
+
       const response = axios({
         method: 'post',
         url: `${serverUrl}/api/users/create`,
         headers: {
           Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
         },
         data: userObj,
       });
-      // const response = await fetch(`${serverUrl}/api/users/create`, options);
       const user = await response;
-      await console.log('user', user);
+      await dispatch({
+        type: GET_USER_INFO,
+        payload: user,
+      });
     } catch (err) {
-      console.error('Error @ UserState createUser', err.message);
+      return console.error('Error @ UserState createUser', err.message);
     }
   };
   /*  

@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { TextField, Box, Button } from '@material-ui/core';
+import { TextField, Box } from '@material-ui/core';
 
-const CreateProfile2 = ({ step, setStep, summary, about, handleFormData }) => {
+const CreateProfile2 = ({ summary, about, handleFormData }) => {
   return (
-    <div>
+    <>
       <Box my={2}>
         <TextField
           id='standard-multiline-flexible'
@@ -29,23 +29,11 @@ const CreateProfile2 = ({ step, setStep, summary, about, handleFormData }) => {
         onChange={handleFormData}
         value={about}
       />
-
-      <Box
-        display='flex'
-        my={2}
-        m4={4}
-        alignItems='center'
-        justifyContent='space-between'>
-        <Button onClick={() => setStep(step - 1)}>Back</Button>
-        <Button onClick={() => setStep(step + 1)}>Next</Button>
-      </Box>
-    </div>
+    </>
   );
 };
 
 CreateProfile2.propTypes = {
-  step: PropTypes.number.isRequired,
-  setStep: PropTypes.func.isRequired,
   handleFormData: PropTypes.func.isRequired,
   about: PropTypes.string.isRequired,
   summary: PropTypes.string.isRequired,
