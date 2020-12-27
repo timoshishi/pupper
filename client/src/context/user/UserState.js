@@ -2,6 +2,8 @@ import React, { useReducer } from 'react';
 import UserContext from './userContext';
 import userReducer from './userReducer';
 import { useAuth0 } from '@auth0/auth0-react';
+import { useHistory } from 'react-router-dom';
+
 import axios from 'axios';
 import { GET_USER_INFO, GET_USER_ID } from '../types';
 // import { GET_USER_INFO } from '../types';
@@ -13,15 +15,13 @@ const UserState = (props) => {
     userInfo: null,
   };
   const { getAccessTokenSilently } = useAuth0();
-
+  const history = useHistory();
   // eslint-disable-next-line
   const [state, dispatch] = useReducer(userReducer, initialState);
 
-  const getUserId = async (email) => {
-    console.log({ email });
+  const getUser = async (email) => {
     try {
       const token = await getAccessTokenSilently();
-      console.log({ token });
       const options = {
         method: 'POST',
         headers: {
@@ -31,16 +31,20 @@ const UserState = (props) => {
         body: JSON.stringify({ email: email }),
       };
       const response = await fetch(`${serverUrl}/api/users/`, options);
-      const data = await response.json();
-
-      await console.log({ data });
-      await dispatch({
-        type: GET_USER_INFO,
-        payload: data,
-      });
-      return response;
+      if (response.status === 204) {
+        return history.push('/create-profile');
+        // return response.status;
+      } else {
+        const data = await response.json();
+        dispatch({
+          type: GET_USER_INFO,
+          payload: data,
+        });
+        history.push('/');
+        return;
+      }
     } catch (err) {
-      console.error('Error @ UserState getUserId', err.message);
+      console.error('Error @ UserState getUser', err.message);
     }
   };
 
@@ -62,6 +66,8 @@ const UserState = (props) => {
         type: GET_USER_INFO,
         payload: user,
       });
+      history.push('/');
+      return;
     } catch (err) {
       return console.error('Error @ UserState createUser', err.message);
     }
@@ -95,7 +101,8 @@ const callSecureApi = async () => {
     <UserContext.Provider
       value={{
         userInfo: state.userInfo,
-        getUserId,
+        userId: state.userId,
+        getUser,
         createUser,
       }}>
       {props.children}
