@@ -1,3 +1,5 @@
+const { json } = require('express');
+
 const zipCodeMaker = (max, min) => {
   return Math.floor(Math.random() * (max - min) + min);
 };
@@ -15,4 +17,8 @@ const photoStringMaker = () => {
   return returnStr;
 };
 
+const photoArrMaker = () => {
+  return [...new Array(4)].map((noVal) => 'https://picsum.photos/200/300');
+};
+console.log(JSON.stringify(photoArrMaker()));
 module.exports = { zipCodeMaker, photoStringMaker };

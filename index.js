@@ -3,10 +3,12 @@ const app = express();
 const path = require('path');
 const cors = require('cors');
 const { clientOrigins } = require('./config/env.dev');
-
+const bodyParser = require('body-parser');
+// app.use(require('connect-multiparty')());
 app.use(cors({ origin: clientOrigins }));
 app.use(require('morgan')('dev'));
 app.use(express.json({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 
 const apiRouter = express.Router();
 const { messagesRouter } = require('./routes/messages/messages.router.js');

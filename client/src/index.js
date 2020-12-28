@@ -5,12 +5,15 @@ import './index.css';
 import App from './App';
 import Auth0ProviderWithHistory from './auth/auth0-provider-with-history';
 import { CssBaseline } from '@material-ui/core';
+import UserState from './context/user/UserState';
 
 ReactDOM.render(
   <Router>
     <Auth0ProviderWithHistory>
-      <CssBaseline />
-      <App />
+      <UserState>
+        <CssBaseline />
+        <App />
+      </UserState>
     </Auth0ProviderWithHistory>
   </Router>,
   document.getElementById('root')
