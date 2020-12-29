@@ -8,7 +8,7 @@ import {
   CreateProfile1,
   CreateProfile2,
   CreateProfile3,
-  CreateProfile4,
+  PhotoUpload,
   Stepper,
 } from '../components/CreateProfile';
 
@@ -100,16 +100,18 @@ const CreateProfile = () => {
                   />
                 )}
                 {step === 3 && (
+                  <PhotoUpload userInfo={userInfo} setUserInfo={setUserInfo} />
+                )}
+                {step === 4 && (
                   <CreateProfile3
                     handleInterests={handleInterests}
                     interests={interests}
                   />
                 )}
-                {step === 4 && <CreateProfile4 />}
                 <Stepper
                   step={step}
                   setStep={setStep}
-                  maxStep={3}
+                  maxStep={4}
                   handleSubmit={handleSubmit}
                 />
               </div>

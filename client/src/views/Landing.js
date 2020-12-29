@@ -7,7 +7,6 @@ const Landing = (props) => {
     <Box display='flex' alignItems='center'>
       <Box m='auto'>
         <h1 style={{ marginLeft: '5rem' }}>Pupper</h1>
-        <h2>Meet Your New Best Friend</h2>
         <Box as='span'>
           <AuthenticationButton />
           <SignupButton>Sign Up</SignupButton>

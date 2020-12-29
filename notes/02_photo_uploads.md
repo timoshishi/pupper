@@ -39,9 +39,8 @@ able to upload images using postman. When trying to upload from client side I
 was continually getting 422 errors that the server was not able to handle this
 resource.
 
-1. Checked headers client side and set them to 'content-type':
-   'application/octet-stream' and that took out the errors but was not
-   uploading.
+Checked headers client side and set them to 'content-type':
+'application/octet-stream' and that took out the errors but was not uploading.
 
 I was not able to access anything in the server side req body even though I was
 able to log out the FormData object client side so I knew the files were in
@@ -54,7 +53,7 @@ anything until it went into the multer object.
 I tried about a million different headers to no avail
 
 Logged out the 600 line req bodies for both the postman POST and the client side
-POST to see if there were any differences.
+POST and compared them side by side to see if there were any differences.
 
 I had all but given up hope when I looked at the Postman POST request and
 noticed that in the body i had set the key to 'image' and the value to the file.
