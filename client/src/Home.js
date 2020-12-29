@@ -21,7 +21,7 @@ const Home = () => {
 
   return (
     <Fragment>
-      {dogs && <Swiper dogs={dogs} />}
+      {dogs.length && <Swiper dogs={dogs} />}
       {/* <Hero /> */}
       {/* <HomeContent /> */}
     </Fragment>

@@ -16,7 +16,6 @@ const DogsState = (props) => {
   const getAllDogs = async () => {
     try {
       const token = await getAccessTokenSilently();
-      console.log(token);
       const options = {
         method: 'GET',
         headers: {
