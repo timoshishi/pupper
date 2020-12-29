@@ -1,3 +1,4 @@
+const ObjectsToCsv = require('objects-to-csv');
 const faker = require('faker');
 const { v4: uuidv4 } = require('uuid');
 const { zipCodeMaker, photoStringMaker } = require('./dataGen.js');
@@ -25,9 +26,8 @@ const breeds = [
   'Mutt',
 ];
 
-const createDog = (user_id) => {
+const createDog = () => {
   return {
-    user_id,
     name: dogNames[Math.floor(Math.random() * dogNames.length)],
     breed: breeds[Math.floor(Math.random() * breeds.length)],
     color: faker.commerce.color(),
@@ -37,7 +37,12 @@ const createDog = (user_id) => {
     title: faker.lorem.sentence(),
     zip_code: zipCodeMaker(80001, 81658),
     photos: photoStringMaker(),
+    created_at: new Date().toISOString(),
   };
 };
+console.log(createDog());
+const dogs = [...new Array(20)].map((un) => createDog());
+const dogCsv = new ObjectsToCsv(dogs);
+dogCsv.toDisk('./dummy/dogs.csv');
 
 module.exports = createDog;
