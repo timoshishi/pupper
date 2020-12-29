@@ -6,13 +6,16 @@ import App from './App';
 import Auth0ProviderWithHistory from './auth/auth0-provider-with-history';
 import { CssBaseline } from '@material-ui/core';
 import UserState from './context/user/UserState';
+import DogsState from './context/dogs/DogsState';
 
 ReactDOM.render(
   <Router>
     <Auth0ProviderWithHistory>
       <UserState>
-        <CssBaseline />
-        <App />
+        <DogsState>
+          <CssBaseline />
+          <App />
+        </DogsState>
       </UserState>
     </Auth0ProviderWithHistory>
   </Router>,
