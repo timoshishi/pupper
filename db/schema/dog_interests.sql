@@ -1,8 +1,7 @@
---DROP TABLE interests;
+DROP TABLE dog_interests;
 
 
 CREATE TABLE IF NOT EXISTS dog_interests(
-  id serial primary key,
   dog_id int,
   walkies boolean,
   scritches boolean,
@@ -18,8 +17,8 @@ CREATE TABLE IF NOT EXISTS dog_interests(
       FOREIGN KEY(dog_id)
         REFERENCES dogs(dog_id)
 );
-COPY interests(
-  user_id,
+COPY dog_interests(
+  dog_id,
   walkies,
   scritches,
   the_beach,
@@ -31,8 +30,8 @@ COPY interests(
   wrestling,
   tug_of_war
 ) 
-FROM 'C:\Users\timfr\Documents\github\hackreactor\puppr\data-generation\dummy\interests.csv'
+FROM 'C:\Users\timfr\Documents\github\hackreactor\puppr\utils\data-generation\dummy\dog_interests.csv'
 DELIMITER ','
 CSV HEADER;
 
-select * from interests;
+select * from dog_interests;

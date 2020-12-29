@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Box, Chip } from '@material-ui/core';
-const CreateProfile3 = ({ interests, handleInterests }) => {
+const DogInterests = ({ interests }) => {
   return (
     <Box
       display='flex'
@@ -12,14 +12,7 @@ const CreateProfile3 = ({ interests, handleInterests }) => {
         const name = interest.replaceAll('_', ' ');
         return (
           <Box m={0.5} key={i}>
-            <Chip
-              label={name}
-              variant={!interests[interest] ? 'outlined' : 'default'}
-              color='primary'
-              clickable
-              name={interest}
-              onClick={() => handleInterests(interest)}
-            />
+            <Chip label={name} color='primary' name={interest} />
           </Box>
         );
       })}
@@ -27,9 +20,8 @@ const CreateProfile3 = ({ interests, handleInterests }) => {
   );
 };
 
-CreateProfile3.propTypes = {
+DogInterests.propTypes = {
   interests: PropTypes.object.isRequired,
-  handleInterests: PropTypes.func.isRequired,
 };
 
-export default CreateProfile3;
+export default DogInterests;

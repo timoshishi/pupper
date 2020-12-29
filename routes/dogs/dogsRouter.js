@@ -4,7 +4,7 @@
 
 const express = require('express');
 const { checkJwt } = require('../../middleware/check-jwt');
-const { getAllDogs } = require('./dogsService');
+const { getAllDogs } = require('./dogsService.js');
 /**
  * Router Definition
  */

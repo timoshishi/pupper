@@ -16,6 +16,7 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShareIcon from '@material-ui/icons/Share';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
+import { InterestChips } from '../CreateProfile';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -67,6 +68,7 @@ const Slide = ({ dog }) => {
       <CardContent>
         <Typography>{dog.breed}</Typography>
         <Typography>Color: {dog.color}</Typography>
+        <InterestChips interests={dog.interests} />
         <Typography
           variant='body2'
           color='textSecondary'
