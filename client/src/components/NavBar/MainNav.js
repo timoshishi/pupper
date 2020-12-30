@@ -1,4 +1,5 @@
 import { NavLink } from 'react-router-dom';
+import NavBar from './NavBar';
 import React from 'react';
 
 const MainNav = () => (

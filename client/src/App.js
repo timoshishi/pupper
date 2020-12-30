@@ -17,19 +17,21 @@ function App() {
   }
 
   return (
-    <Container>
+    <>
       <NavBar />
-      <Switch>
-        <Route path='/' exact component={isAuthenticated ? Home : Landing} />
-        <ProtectedRoute path='/' exact component={Home} />
-        <ProtectedRoute
-          path='/create-profile'
-          exact
-          component={CreateProfile}
-        />
-      </Switch>
-      <Footer />
-    </Container>
+      <Container>
+        <Switch>
+          <Route path='/' exact component={isAuthenticated ? Home : Landing} />
+          <ProtectedRoute path='/' exact component={Home} />
+          <ProtectedRoute
+            path='/create-profile'
+            exact
+            component={CreateProfile}
+          />
+        </Switch>
+        <Footer />
+      </Container>
+    </>
   );
 }
 

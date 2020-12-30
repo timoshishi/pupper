@@ -5,8 +5,7 @@ import { useAuth0 } from '@auth0/auth0-react';
 import { useHistory } from 'react-router-dom';
 
 import axios from 'axios';
-import { GET_USER_INFO, GET_USER_ID } from '../types';
-// import { GET_USER_INFO } from '../types';
+import { GET_USER_INFO } from '../types';
 const serverUrl = process.env.REACT_APP_SERVER_URL;
 
 const UserState = (props) => {
