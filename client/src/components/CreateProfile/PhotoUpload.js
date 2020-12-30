@@ -1,14 +1,12 @@
 import React, { useState, useContext } from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
-import UserContext from '../../context/user/userContext';
 import { Button, Card } from '@material-ui/core';
 import PropTypes from 'prop-types';
 
 const PhotoUpload = ({ userInfo, setUserInfo }) => {
   const serverUrl = process.env.REACT_APP_SERVER_URL;
-  const userContext = useContext(UserContext);
-  const { userId } = userContext;
-  const { getAccessTokenSilently } = useAuth0();
+  // const userContext = useContext(UserContext);
+  const { getAccessTokenSilently, user } = useAuth0();
   const [image, setImage] = useState(null);
   const [imageUrl, setImageUrl] = useState(null);
 
@@ -31,7 +29,7 @@ const PhotoUpload = ({ userInfo, setUserInfo }) => {
       };
 
       const response = await fetch(
-        `${serverUrl}/api/users/photos/${userId}`,
+        `${serverUrl}/api/users/photos/${user.sub}`,
         options
       );
       const url = await response.json();
@@ -55,7 +53,7 @@ const PhotoUpload = ({ userInfo, setUserInfo }) => {
         onChange={handleImageSelect}
         accept='image/x-png,image/jpeg'
       />
-      <Button onClick={handleImageSubmit} disabled={imageUrl}>
+      <Button onClick={handleImageSubmit} disabled={imageUrl ? true : false}>
         Add Photo
       </Button>
       {userInfo.photos.length ? (

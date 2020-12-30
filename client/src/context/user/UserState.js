@@ -13,23 +13,26 @@ const UserState = (props) => {
     userId: null,
     userInfo: null,
   };
-  const { getAccessTokenSilently } = useAuth0();
+  const { getAccessTokenSilently, user } = useAuth0();
   const history = useHistory();
   // eslint-disable-next-line
   const [state, dispatch] = useReducer(userReducer, initialState);
 
-  const getUser = async (email) => {
+  const getUser = async (userId) => {
     try {
       const token = await getAccessTokenSilently();
       const options = {
-        method: 'POST',
+        method: 'GET',
         headers: {
           Authorization: `Bearer ${token}`,
-          'Content-Type': 'application/json',
+          // 'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ email: email }),
+        // body: JSON.stringify({ email: email }),
       };
-      const response = await fetch(`${serverUrl}/api/users/`, options);
+      const response = await fetch(
+        `${serverUrl}/api/users/${user.sub}`,
+        options
+      );
       if (response.status === 204) {
         return history.push('/create-profile');
         // return response.status;

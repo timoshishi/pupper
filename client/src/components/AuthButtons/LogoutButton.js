@@ -10,7 +10,8 @@ const LogoutButton = () => {
         logout({
           returnTo: window.location.origin,
         })
-      }>
+      }
+      style={{ color: 'white' }}>
       Log Out
     </Button>
   );

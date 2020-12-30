@@ -3,11 +3,12 @@ import './App.css';
 import { Switch, Route, withRouter } from 'react-router-dom';
 import { NavBar, Footer, Loading } from './components/index.js';
 import Landing from './views/Landing';
-import Home from './Home';
+import Home from './views/Home';
 import ProtectedRoute from './auth/ProtectedRoute';
 import { useAuth0 } from '@auth0/auth0-react';
 import { Container } from '@material-ui/core';
 import CreateProfile from './views/CreateProfile';
+import { Matches } from './views';
 
 function App() {
   const { isLoading, isAuthenticated } = useAuth0();
@@ -28,6 +29,7 @@ function App() {
             exact
             component={CreateProfile}
           />
+          <ProtectedRoute path='/matches' exact component={Matches} />
         </Switch>
         <Footer />
       </Container>
