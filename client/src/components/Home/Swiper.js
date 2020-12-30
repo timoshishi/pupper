@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
 import SwiperCore, { Lazy } from 'swiper';
 import PropTypes from 'prop-types';
 import { Swiper as ReactSwiper, SwiperSlide } from 'swiper/react';
@@ -6,22 +6,25 @@ import 'swiper/swiper.scss';
 import '../../../node_modules/swiper/components/lazy/lazy.scss';
 import '../../../node_modules/swiper/components/lazy/lazy.min.css';
 import Slide from './Slide';
+import DogsContext from '../../context/dogs/dogsContext';
+
 SwiperCore.use([Lazy]);
 
 const Swiper = ({ dogs }) => {
   const dogArr = [...dogs];
   const [currentDogId, setCurrentDogId] = useState(null);
   const [currentDogs, setCurrentDogs] = useState(dogArr.slice(0, 2));
+  const { createMatch } = useContext(DogsContext);
 
   const handleDogs = (dir) => {
     if (dir === 'prev') {
       console.log(dir);
+      createMatch(dogArr[0].dog_id);
       dogArr.splice(0, 1);
       setCurrentDogs(dogArr.slice(0, 2));
       console.log({ dogArr, currentDogs });
     } else if (dir === 'next') {
       console.log(dir);
-      //addMatch(currentDogs[0].dog_id);
       dogArr.splice(0, 1);
       setCurrentDogs(dogArr.slice(0, 2));
       console.log({ dogArr, currentDogs });

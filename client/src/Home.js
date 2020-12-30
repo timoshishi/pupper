@@ -10,10 +10,11 @@ const Home = () => {
   const userContext = useContext(UserContext);
   const { getUser, userId } = userContext;
   const dogsContext = useContext(DogsContext);
-  const { getAllDogs, dogs } = dogsContext;
+  const { getAllDogs, dogs, getMatches } = dogsContext;
   useEffect(() => {
     getUser(user.email);
     getAllDogs();
+    getMatches();
     // eslint-disable-next-line
   }, []);
 
