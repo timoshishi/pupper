@@ -51,7 +51,7 @@ const createUser = async (userObj) => {
     ]);
 
     await pool.query(interestsInsertQuery, [
-      userObj.interests.user_id,
+      userObj.user_id,
       userObj.interests.walkies,
       userObj.interests.scritches,
       userObj.interests.the_beach,

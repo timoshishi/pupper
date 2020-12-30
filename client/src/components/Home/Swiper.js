@@ -8,18 +8,18 @@ import '../../../node_modules/swiper/components/lazy/lazy.min.css';
 import Slide from './Slide';
 import DogsContext from '../../context/dogs/dogsContext';
 import { useAuth0 } from '@auth0/auth0-react';
-
 SwiperCore.use([Lazy]);
 
 const Swiper = ({ dogs }) => {
   const dogArr = [...dogs];
   const [currentDogs, setCurrentDogs] = useState(dogArr.slice(0, 2));
-  const { createMatch } = useContext(DogsContext);
+  const { createMatch, incrementNewMatches } = useContext(DogsContext);
   const { user } = useAuth0();
   //FIXME: Not rendering dogs correctly, need to figure out bugs;
   const handleDogs = (dir) => {
     if (dir === 'prev') {
       createMatch(user.sub, dogArr[0].dog_id);
+      incrementNewMatches();
       dogArr.splice(0, 1);
       setCurrentDogs(dogArr.slice(0, 1));
     } else if (dir === 'next') {

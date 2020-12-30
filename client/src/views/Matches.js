@@ -2,21 +2,24 @@ import React, { useEffect, useContext } from 'react';
 import { Loading } from '../components';
 import DogsContext from '../context/dogs/dogsContext';
 import { useAuth0 } from '@auth0/auth0-react';
+import { MatchList } from '../components/Matches';
+
 const Matches = () => {
   const dogsContext = useContext(DogsContext);
-  const { matches, getMatches } = dogsContext;
+  const { matches, getMatches, clearNewMatches } = dogsContext;
   const { user } = useAuth0();
   useEffect(() => {
     getMatches(user.sub);
+    clearNewMatches();
+    //eslint-disable-next-line
   }, []);
 
-  if (!matches.length) {
-    return <Loading />;
-  }
   return (
     <div>
       <h1>Matches</h1>
-      {matches.length && <pre>{JSON.stringify(matches)}</pre>}
+      {matches.length ? (
+        <MatchList matches={matches} clearNewMatches={clearNewMatches} />
+      ) : null}
     </div>
   );
 };

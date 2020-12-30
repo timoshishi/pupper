@@ -1,11 +1,10 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
 import { Button, Card } from '@material-ui/core';
 import PropTypes from 'prop-types';
 
 const PhotoUpload = ({ userInfo, setUserInfo }) => {
   const serverUrl = process.env.REACT_APP_SERVER_URL;
-  // const userContext = useContext(UserContext);
   const { getAccessTokenSilently, user } = useAuth0();
   const [image, setImage] = useState(null);
   const [imageUrl, setImageUrl] = useState(null);
