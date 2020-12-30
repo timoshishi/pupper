@@ -55,7 +55,7 @@ const getMatches = async (userId) => {
         dog_id,
       ]);
       const filteredInterests = {};
-      await Object.keys(interests[0]).forEach((interest) => {
+      Object.keys(interests[0]).forEach((interest) => {
         if (interest !== 'dog_id' && interests[0][interest]) {
           filteredInterests[interest] = interests[0][interest];
         }

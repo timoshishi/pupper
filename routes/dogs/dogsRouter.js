@@ -41,6 +41,17 @@ dogsRouter.post('/match/:userId/:dogId', checkJwt, async (req, res) => {
   }
 });
 
+dogsRouter.get('/match/:userId', checkJwt, async (req, res) => {
+  try {
+    const { userId } = req.params;
+    const matches = await getMatches(userId);
+    res.json(matches);
+  } catch (err) {
+    console.error('@/api/dogs/match/:userId/:dogId', err.message);
+    res.status(500).json({ msg: err.message });
+  }
+});
+
 module.exports = {
   dogsRouter,
 };
