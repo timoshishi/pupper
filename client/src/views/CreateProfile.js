@@ -18,6 +18,7 @@ const CreateProfile = () => {
   const userContext = useContext(UserContext);
   const { createUser, userId } = userContext;
   const [userInfo, setUserInfo] = useState({
+    user_id: user.sub,
     email: user.email,
     name: '',
     zip_code: 0,

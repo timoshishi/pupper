@@ -1,16 +1,5 @@
 const pool = require('../../db/db');
 
-/* Called on Page Load, Checks if User Exists */
-const getUserByEmail = async (email) => {
-  try {
-    const queryString = 'SELECT user_id FROM users WHERE email = $1';
-    const user = await pool.query(queryString, [email]);
-    return user.rows[0].user_id;
-  } catch (err) {
-    return console.error('at getUserByEmail', err.message);
-  }
-};
-
 /* Get User Profile And Interests */
 const getUserInfo = async (userId) => {
   try {
@@ -20,7 +9,6 @@ const getUserInfo = async (userId) => {
 
     const res = await pool.query(userQueryString, [userId]);
     const userInfo = res.rows[0];
-
     const interestsRes = await pool.query(interestsQueryString, [userId]);
     const interests = interestsRes.rows[0];
 
@@ -45,12 +33,13 @@ const createUser = async (userObj) => {
 
   try {
     const usersInsertQuery =
-      'INSERT INTO users(email, name, zip_code, about, summary, photos, created_at, last_login) VALUES($1, $2, $3, $4, $5, $6, $7, $8) RETURNING user_id';
+      'INSERT INTO users(user_id, email, name, zip_code, about, summary, photos, created_at, last_login) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING user_id';
 
     const interestsInsertQuery =
       'INSERT INTO interests(user_id, walkies, scritches, the_beach, playing_fetch, nap_time, running, frolicking, cuddles, wrestling, tug_of_war) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)';
 
     const { rows } = await pool.query(usersInsertQuery, [
+      userObj.user_id,
       userObj.email,
       userObj.name,
       userObj.zip_code,
@@ -60,10 +49,9 @@ const createUser = async (userObj) => {
       userObj.created_at,
       userObj.last_login,
     ]);
-    const { user_id } = await rows[0];
 
     await pool.query(interestsInsertQuery, [
-      userObj.interests.user_id,
+      userObj.user_id,
       userObj.interests.walkies,
       userObj.interests.scritches,
       userObj.interests.the_beach,
@@ -75,7 +63,7 @@ const createUser = async (userObj) => {
       userObj.interests.wrestling,
       userObj.interests.tug_of_war,
     ]);
-    return user_id;
+    return;
   } catch (err) {
     return console.error('at createUser', err.message);
   }
@@ -85,7 +73,6 @@ const getUserMessages = async () => {};
 
 module.exports = {
   getUserMessages,
-  getUserByEmail,
   getUserInfo,
   createUser,
 };

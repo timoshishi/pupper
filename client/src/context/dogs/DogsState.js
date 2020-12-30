@@ -1,18 +1,23 @@
-import React, { useReducer, useContext } from 'react';
+import React, { useReducer } from 'react';
 import DogsContext from './dogsContext';
 import dogsReducer from './dogsReducer';
 import { useAuth0 } from '@auth0/auth0-react';
-import UserContext from '../user/userContext';
-import { GET_ALL_DOGS, GET_MATCHES } from '../types';
+// import UserContext from '../user/userContext';
+import {
+  GET_ALL_DOGS,
+  GET_MATCHES,
+  INCREMENT_NEW_MATCHES,
+  CLEAR_NEW_MATCHES,
+} from '../types';
 const serverUrl = process.env.REACT_APP_SERVER_URL;
 
 const DogsState = (props) => {
   const initialState = {
     dogs: [],
     matches: [],
+    newMatchCount: 0,
   };
   const { getAccessTokenSilently } = useAuth0();
-  const { userId } = useContext(UserContext);
   const [state, dispatch] = useReducer(dogsReducer, initialState);
 
   const getAllDogs = async () => {
@@ -37,7 +42,7 @@ const DogsState = (props) => {
   };
 
   /* Returns an array of all dog matches for the current user */
-  const getMatches = async () => {
+  const getMatches = async (userId) => {
     try {
       const token = await getAccessTokenSilently();
       const options = {
@@ -51,7 +56,6 @@ const DogsState = (props) => {
         options
       );
       const data = await response.json();
-      console.log({ data });
       dispatch({
         type: GET_MATCHES,
         payload: data,
@@ -63,7 +67,7 @@ const DogsState = (props) => {
   };
 
   /* Creates a match with current user and current dog ID, returns an array of all matches */
-  const createMatch = async (dogId) => {
+  const createMatch = async (userId, dogId) => {
     try {
       const token = await getAccessTokenSilently();
       const options = {
@@ -77,7 +81,6 @@ const DogsState = (props) => {
         options
       );
       const data = await response.json();
-      console.log({ data });
       dispatch({
         type: GET_MATCHES,
         payload: data,
@@ -88,13 +91,32 @@ const DogsState = (props) => {
     }
   };
 
+  /* Add a match to local state for display on the navbar badge */
+  const incrementNewMatches = () => {
+    dispatch({
+      type: INCREMENT_NEW_MATCHES,
+      payload: null,
+    });
+  };
+
+  const clearNewMatches = () => {
+    dispatch({
+      type: CLEAR_NEW_MATCHES,
+      payload: null,
+    });
+  };
+
   return (
     <DogsContext.Provider
       value={{
         dogs: state.dogs,
+        matches: state.matches,
+        newMatchCount: state.newMatchCount,
         getAllDogs,
         getMatches,
         createMatch,
+        incrementNewMatches,
+        clearNewMatches,
       }}>
       {props.children}
     </DogsContext.Provider>

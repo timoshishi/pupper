@@ -3,7 +3,7 @@ DROP TABLE interests;
 
 CREATE TABLE IF NOT EXISTS interests(
   id serial primary key,
-  user_id int UNIQUE,
+  user_id varchar(100) UNIQUE,
   walkies boolean,
   scritches boolean,
   the_beach boolean,
