@@ -1,5 +1,4 @@
 import React, { useEffect, useContext } from 'react';
-import { Loading } from '../components';
 import DogsContext from '../context/dogs/dogsContext';
 import { useAuth0 } from '@auth0/auth0-react';
 import { MatchList } from '../components/Matches';
