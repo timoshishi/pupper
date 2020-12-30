@@ -13,10 +13,13 @@ app.use(bodyParser.urlencoded({ extended: true }));
 const apiRouter = express.Router();
 const { messagesRouter } = require('./routes/messages/messages.router.js');
 const { usersRouter } = require('./routes/users/usersRouter.js');
+const { dogsRouter } = require('./routes/dogs/dogsRouter.js');
 
 app.use('/api', apiRouter);
 apiRouter.use('/messages', messagesRouter);
 apiRouter.use('/users', usersRouter);
+apiRouter.use('/dogs', dogsRouter);
+apiRouter.use('/interests', require('./routes/interests/interestsRouter'));
 
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, 'client/build')));

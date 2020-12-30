@@ -26,8 +26,16 @@ const upload = multer({
       cb(null, { fieldName: 'TESTING_METADATA' });
     },
     key: function (req, file, cb) {
+      let fileName = '';
       const ext = file.mimetype.split('/')[1];
-      cb(null, `${req.params.id}-${Date.now()}.${ext}`);
+
+      if (!parseInt(req.params.id)) {
+        fileName = `${req.params.id}.${ext}`;
+      } else {
+        fileName = `${req.params.id}-${Date.now()}.${ext}`;
+      }
+      console.log(fileName);
+      cb(null, fileName);
     },
   }),
 });

@@ -7,7 +7,7 @@ import UserContext from '../context/user/userContext';
 import {
   CreateProfile1,
   CreateProfile2,
-  CreateProfile3,
+  InterestChips,
   PhotoUpload,
   Stepper,
 } from '../components/CreateProfile';
@@ -103,7 +103,7 @@ const CreateProfile = () => {
                   <PhotoUpload userInfo={userInfo} setUserInfo={setUserInfo} />
                 )}
                 {step === 4 && (
-                  <CreateProfile3
+                  <InterestChips
                     handleInterests={handleInterests}
                     interests={interests}
                   />

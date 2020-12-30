@@ -5,8 +5,7 @@ import { useAuth0 } from '@auth0/auth0-react';
 import { useHistory } from 'react-router-dom';
 
 import axios from 'axios';
-import { GET_USER_INFO, GET_USER_ID } from '../types';
-// import { GET_USER_INFO } from '../types';
+import { GET_USER_INFO } from '../types';
 const serverUrl = process.env.REACT_APP_SERVER_URL;
 
 const UserState = (props) => {
@@ -72,31 +71,7 @@ const UserState = (props) => {
       return console.error('Error @ UserState createUser', err.message);
     }
   };
-  /*  
-const callSecureApi = async () => {
-    try {
-      const token = await getAccessTokenSilently();
-      const response = await fetch(
-        `${serverUrl}/api/messages/protected-message`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
 
-
-  // Set Alert
-  const setAlert = (msg, type, timeout = 5000) => {
-    const id = uuidv4();
-    dispatch({
-      type: SET_ALERT,
-      payload: { msg, type, id },
-    });
-
-    setTimeout(() => dispatch({ type: REMOVE_ALERT, payload: id }), timeout);
-  };
-*/
   return (
     <UserContext.Provider
       value={{

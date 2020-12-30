@@ -1,9 +1,8 @@
-const faker = require('faker');
-const { v4: uuidv4 } = require('uuid');
+const ObjectsToCsv = require('objects-to-csv');
 
-const createInterests = (user_id) => {
+const createInterests = (dog_id) => {
   return {
-    user_id,
+    dog_id,
     walkies: Math.random() < 0.4 ? 't' : 'f',
     scritches: Math.random() < 0.3 ? 't' : 'f',
     the_beach: Math.random() < 0.3 ? 't' : 'f',
@@ -16,4 +15,7 @@ const createInterests = (user_id) => {
     tug_of_war: Math.random() < 0.3 ? 't' : 'f',
   };
 };
+const interests = [...new Array(20)].map((un, i) => createInterests(i + 1));
+const interestsCsv = new ObjectsToCsv(interests);
+interestsCsv.toDisk('./dummy/dog_interests.csv');
 module.exports = createInterests;

@@ -1,4 +1,4 @@
---DROP TABLE dogs;
+DROP TABLE dogs;
 
 CREATE TABLE IF NOT EXISTS dogs(
   dog_id serial primary key,
@@ -16,8 +16,7 @@ CREATE TABLE IF NOT EXISTS dogs(
 
 
 
-COPY dogs(
-  user_id,
+\copy dogs(
   name,
   breed,
   color,
@@ -26,10 +25,14 @@ COPY dogs(
   about,
   title,
   zip_code,
-  photos
+  photos,
+  created_at
 ) 
-FROM 'C:\Users\timfr\Documents\github\hackreactor\puppr\data-generation\dummy\dog.csv'
+FROM 'C:\Users\timfr\Documents\github\hackreactor\puppr\utils\data-generation\dummy\dogs.csv'
 DELIMITER ','
 CSV HEADER;
 
 select * from dogs;
+
+\copy dogs (name, breed, color, adult_weight, age, about, title, zip_code, photos, created_at) from 'C:\Users\timfr\Documents\github\hackreactor\puppr\utils\data-generation\dummy\dogs.csv' CSV HEADER;
+

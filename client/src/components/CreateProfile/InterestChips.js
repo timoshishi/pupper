@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Box, Chip } from '@material-ui/core';
-const CreateProfile3 = ({ interests, handleInterests }) => {
+const InterestChips = ({ interests, handleInterests }) => {
   return (
     <Box
       display='flex'
@@ -27,9 +27,9 @@ const CreateProfile3 = ({ interests, handleInterests }) => {
   );
 };
 
-CreateProfile3.propTypes = {
+InterestChips.propTypes = {
   interests: PropTypes.object.isRequired,
-  handleInterests: PropTypes.func.isRequired,
+  handleInterests: PropTypes.func,
 };
 
-export default CreateProfile3;
+export default InterestChips;

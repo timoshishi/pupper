@@ -1,17 +1,23 @@
---DROP TABLE matches
+DROP TABLE matches;
 
 CREATE TABLE IF NOT EXISTS matches(
   id serial primary key,
   user_id int,
   dog_id int,
-  created_at timestamptz,
-    CONSTRAINT fk_user
-      FOREIGN KEY(user_id)
-        REFERENCES users(user_id),
-    CONSTRAINT fk_dog
-      FOREIGN KEY(dog_id)
-        REFERENCES dogs(dog_id)
+  created_at timestamptz
 );
+-- CREATE TABLE IF NOT EXISTS matches(
+--   id serial primary key,
+--   user_id int,
+--   dog_id int,
+--   created_at timestamptz,
+--     CONSTRAINT fk_user
+--       FOREIGN KEY(user_id)
+--         REFERENCES users(user_id),
+--     CONSTRAINT fk_dog
+--       FOREIGN KEY(dog_id)
+--         REFERENCES dogs(dog_id)
+-- );
 
 
 COPY matches(
