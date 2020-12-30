@@ -34,4 +34,6 @@ FROM 'C:\Users\timfr\Documents\github\hackreactor\puppr\utils\data-generation\du
 DELIMITER ','
 CSV HEADER;
 
+\copy dog_interests from 'C:\Users\timfr\Documents\github\hackreactor\puppr\utils\data-generation\dummy\dog_interests.csv' CSV HEADER;
+
 select * from dog_interests;

@@ -16,7 +16,7 @@ CREATE TABLE IF NOT EXISTS dogs(
 
 
 
-COPY dogs(
+\copy dogs(
   name,
   breed,
   color,
@@ -33,3 +33,6 @@ DELIMITER ','
 CSV HEADER;
 
 select * from dogs;
+
+-- \copy dogs (name, breed, color, adult_weight, age, about, title, zip_code, photos, created_at) from 'C:\Users\timfr\Documents\github\hackreactor\puppr\utils\data-generation\dummy\dogs.csv' CSV HEADER
+
