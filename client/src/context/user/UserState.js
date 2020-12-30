@@ -72,31 +72,7 @@ const UserState = (props) => {
       return console.error('Error @ UserState createUser', err.message);
     }
   };
-  /*  
-const callSecureApi = async () => {
-    try {
-      const token = await getAccessTokenSilently();
-      const response = await fetch(
-        `${serverUrl}/api/messages/protected-message`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
 
-
-  // Set Alert
-  const setAlert = (msg, type, timeout = 5000) => {
-    const id = uuidv4();
-    dispatch({
-      type: SET_ALERT,
-      payload: { msg, type, id },
-    });
-
-    setTimeout(() => dispatch({ type: REMOVE_ALERT, payload: id }), timeout);
-  };
-*/
   return (
     <UserContext.Provider
       value={{
