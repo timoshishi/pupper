@@ -16,15 +16,14 @@ const Swiper = ({ dogs }) => {
   const [currentDogs, setCurrentDogs] = useState(dogArr.slice(0, 2));
   const { createMatch } = useContext(DogsContext);
 
+  //FIXME: Not rendering dogs correctly, need to figure out bugs;
   const handleDogs = (dir) => {
     if (dir === 'prev') {
-      console.log(dir);
       createMatch(dogArr[0].dog_id);
       dogArr.splice(0, 1);
       setCurrentDogs(dogArr.slice(0, 2));
       console.log({ dogArr, currentDogs });
     } else if (dir === 'next') {
-      console.log(dir);
       dogArr.splice(0, 1);
       setCurrentDogs(dogArr.slice(0, 2));
       console.log({ dogArr, currentDogs });
