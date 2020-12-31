@@ -7,21 +7,22 @@ import {
   ListItemText,
 } from '@material-ui/core';
 
-const UserItem = (props) => {
+const UserItem = ({ dog }) => {
   return (
     <ListItem button key='RemySharp'>
       <ListItemIcon>
-        <Avatar
-          alt='Remy Sharp'
-          src='https://material-ui.com/static/images/avatar/1.jpg'
-        />
+        <Avatar alt='Remy Sharp' src={dog.photos[0]} />
       </ListItemIcon>
-      <ListItemText primary='John Wick'></ListItemText>
-      <ListItemText secondary='online' align='right'></ListItemText>
+      <ListItemText primary={dog.name}></ListItemText>
+      <ListItemText
+        secondary={Math.random() > 0.5 ? 'online' : null}
+        align='right'></ListItemText>
     </ListItem>
   );
 };
 
-UserItem.propTypes = {};
+UserItem.propTypes = {
+  dog: PropTypes.object.isRequired,
+};
 
 export default UserItem;

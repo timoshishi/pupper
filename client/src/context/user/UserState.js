@@ -18,6 +18,8 @@ const UserState = (props) => {
   const getUser = async (userId) => {
     try {
       const token = await getAccessTokenSilently();
+      await console.log(token);
+
       const options = {
         method: 'GET',
         headers: {

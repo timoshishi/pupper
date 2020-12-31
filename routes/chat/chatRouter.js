@@ -4,7 +4,11 @@
 
 const express = require('express');
 const { checkJwt } = require('../../middleware/check-jwt');
-const { createMessage, getCurrentChat } = require('./chatService.js');
+const {
+  createMessage,
+  getCurrentChat,
+  getChatUsersList,
+} = require('./chatService.js');
 /**
  * Router Definition
  */
@@ -20,7 +24,7 @@ chatRouter.post('/', checkJwt, async (req, res) => {
     await createMessage(req.body);
     res.sendStatus(201);
   } catch (err) {
-    console.error('@/api/dogs/match/:userId/:dogId', err.message);
+    console.error('POST @/api/chat/', err.message);
     res.status(500).json({ msg: err.message });
   }
 });
@@ -30,13 +34,32 @@ GET messages - Gets all messages for the current selected chat
 @Input: params including the user_id and dog_id
 @Output: all messages from the currently selected chat
 */
-chatRouter.get('/:user_id/:dog_id', checkJwt, async (req, res) => {
+chatRouter.get('/current/:user_id/:dog_id', checkJwt, async (req, res) => {
+  console.log('current');
   try {
     const { user_id, dog_id } = req.params;
     const { rows } = await getCurrentChat(user_id, dog_id);
-    res.json(rows);
+    return res.json(rows);
   } catch (err) {
-    console.error('@/api/dogs/match/:userId/:dogId', err.message);
+    console.error('GET @/api/chat/:userId/:dogId', err.message);
+    res.status(500).json({ msg: err.message });
+  }
+});
+
+/*
+ GET all dogs that you have any messages with
+ @Input: user_id in the params
+ @Output: objects with the information of each dog
+ */
+chatRouter.get('/chat-list/:user_id', checkJwt, async (req, res) => {
+  console.log('chat-list');
+  console.log(req.params);
+  try {
+    const { user_id } = req.params;
+    const dogs = await getChatUsersList(user_id);
+    res.json(dogs);
+  } catch (err) {
+    console.error('GET @/api/chat/chat-list/:userId', err.message);
     res.status(500).json({ msg: err.message });
   }
 });

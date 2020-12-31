@@ -1,16 +1,57 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
-import Grid from '@material-ui/core/Grid';
-import Divider from '@material-ui/core/Divider';
-import Typography from '@material-ui/core/Typography';
-import List from '@material-ui/core/List';
+import { Paper, Grid, Divider, List } from '@material-ui/core';
 import {
   UserItem,
-  Message,
   MessageInputArea,
   UserSearch,
+  CurrentChat,
+  ChatHeader,
 } from '../components/Chat';
+import ChatContext from '../context/chat/chatContext';
+import { useAuth0 } from '@auth0/auth0-react';
+
+const Chat = () => {
+  const chatContext = useContext(ChatContext);
+  const { getChatUserList, chatUsers } = chatContext;
+  const classes = useStyles();
+  const { user } = useAuth0();
+  useEffect(() => {
+    getChatUserList(user.sub);
+  }, []);
+  return (
+    <div>
+      <Grid container>
+        <Grid item={true} xs={12}>
+          <ChatHeader />
+        </Grid>
+      </Grid>
+      <Grid container component={Paper} className={classes.chatSection}>
+        <Grid item={true} xs={3} className={classes.borderRight500}>
+          <List>
+            <UserItem id='current-chat-user' dog={chatUsers[0]} />
+          </List>
+          <Divider />
+          <Grid item={true} xs={12} style={{ padding: '10px' }}>
+            <UserSearch />
+          </Grid>
+          <Divider />
+          <List id='user-chats'>
+            {chatUsers.length &&
+              chatUsers.map((dog) => (
+                <UserItem key={`dog_id_${dog.dog_id}`} dog={dog} />
+              ))}
+          </List>
+        </Grid>
+        <Grid item={true} xs={9}>
+          <CurrentChat classes={classes} />
+          <Divider />
+          <MessageInputArea />
+        </Grid>
+      </Grid>
+    </div>
+  );
+};
 const useStyles = makeStyles({
   table: {
     minWidth: 650,
@@ -30,46 +71,5 @@ const useStyles = makeStyles({
     overflowY: 'auto',
   },
 });
-
-const Chat = () => {
-  const classes = useStyles();
-  return (
-    <div>
-      <Grid container>
-        <Grid item={true} xs={12}>
-          <Typography variant='h5' className='header-message'>
-            Chat
-          </Typography>
-        </Grid>
-      </Grid>
-      <Grid container component={Paper} className={classes.chatSection}>
-        <Grid item={true} xs={3} className={classes.borderRight500}>
-          <List>
-            <UserItem id='current-chat-user' />
-          </List>
-          <Divider />
-          <Grid item={true} xs={12} style={{ padding: '10px' }}>
-            <UserSearch />
-          </Grid>
-          <Divider />
-          <List id='user-chats'>
-            <UserItem />
-            <UserItem />
-          </List>
-        </Grid>
-        <Grid item={true} xs={9}>
-          <List className={classes.messageArea} id='current-chat'>
-            <Message />
-            <Message />
-            <Message />
-            <Message />
-          </List>
-          <Divider />
-          <MessageInputArea />
-        </Grid>
-      </Grid>
-    </div>
-  );
-};
 
 export default Chat;
