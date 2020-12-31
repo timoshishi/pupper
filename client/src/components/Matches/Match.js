@@ -13,7 +13,7 @@ import {
   ListItemSecondaryAction,
 } from '@material-ui/core';
 import ForumIcon from '@material-ui/icons/Forum';
-const Match = ({ dog }) => {
+const Match = ({ dog, userId }) => {
   return (
     <>
       <ListItem>
@@ -26,7 +26,7 @@ const Match = ({ dog }) => {
             <Typography>Breed: {dog.breed}</Typography>
           </div>
           <ListItemSecondaryAction style={{ marginRight: '1rem' }}>
-            <Link to={`/chat/${dog.name}`}>
+            <Link to={`/chat`}>
               <IconButton aria-label={`Show new notifications`} edge='end'>
                 {/* <Badge badgeContent={17} color='secondary'> */}
                 <ForumIcon />

@@ -12,14 +12,14 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 const apiRouter = express.Router();
 const {
-  messagesRouter,
   dogsRouter,
   usersRouter,
+  chatRouter,
   interestsRouter,
 } = require('./routes/index.js');
 
 app.use('/api', apiRouter);
-apiRouter.use('/messages', messagesRouter);
+apiRouter.use('/chat', chatRouter);
 apiRouter.use('/users', usersRouter);
 apiRouter.use('/dogs', dogsRouter);
 apiRouter.use('/interests', interestsRouter);

@@ -16,11 +16,13 @@ const AuthNav = () => {
   }, [newMatchCount]);
   return (
     <>
-      <IconButton aria-label='show 4 new mails' color='inherit'>
-        <Badge badgeContent={4} color='secondary'>
-          <ChatIcon />
-        </Badge>
-      </IconButton>
+      <Link to='/chat' style={{ color: 'white' }}>
+        <IconButton aria-label='show 4 new mails' color='inherit'>
+          <Badge badgeContent={4} color='secondary'>
+            <ChatIcon />
+          </Badge>
+        </IconButton>
+      </Link>
       <Link to='/matches' style={{ color: 'white' }}>
         <IconButton aria-label='show 17 new notifications' color='inherit'>
           <Badge badgeContent={matchCount} color='secondary'>

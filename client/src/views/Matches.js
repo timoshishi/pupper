@@ -17,12 +17,14 @@ const Matches = () => {
     <div>
       <h1>Matches</h1>
       {matches.length ? (
-        <MatchList matches={matches} clearNewMatches={clearNewMatches} />
+        <MatchList
+          matches={matches}
+          userId={user.sub}
+          clearNewMatches={clearNewMatches}
+        />
       ) : null}
     </div>
   );
 };
-
-Matches.propTypes = {};
 
 export default Matches;

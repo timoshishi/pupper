@@ -8,7 +8,7 @@ import ProtectedRoute from './auth/ProtectedRoute';
 import { useAuth0 } from '@auth0/auth0-react';
 import { Container } from '@material-ui/core';
 import CreateProfile from './views/CreateProfile';
-import { Matches } from './views';
+import { Chat, Matches } from './views';
 
 function App() {
   const { isLoading, isAuthenticated } = useAuth0();
@@ -30,6 +30,7 @@ function App() {
             component={CreateProfile}
           />
           <ProtectedRoute path='/matches' exact component={Matches} />
+          <ProtectedRoute path='/chat' component={Chat} />
         </Switch>
         <Footer />
       </Container>
