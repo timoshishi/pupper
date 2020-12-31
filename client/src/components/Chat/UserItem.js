@@ -7,9 +7,9 @@ import {
   ListItemText,
 } from '@material-ui/core';
 
-const UserItem = ({ dog }) => {
+const UserItem = ({ dog, setChatUser }) => {
   return (
-    <ListItem button key='RemySharp'>
+    <ListItem button onClick={() => setChatUser(dog)}>
       <ListItemIcon>
         <Avatar alt='Remy Sharp' src={dog.photos[0]} />
       </ListItemIcon>
@@ -23,6 +23,7 @@ const UserItem = ({ dog }) => {
 
 UserItem.propTypes = {
   dog: PropTypes.object.isRequired,
+  setChatUser: PropTypes.func.isRequired,
 };
 
 export default UserItem;

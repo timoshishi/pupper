@@ -14,6 +14,7 @@ const ChatState = (props) => {
   const [state, dispatch] = useReducer(chatReducer, initialState);
 
   //CREATES A MESSAGE IN THE CURRENTLY SELECTED CHAT
+  //Input: {from_human, user_id, dog_id, body}
   const createMessage = async (messageObj) => {
     try {
       const token = await getAccessTokenSilently();

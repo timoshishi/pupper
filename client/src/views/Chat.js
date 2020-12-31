@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Paper, Grid, Divider, List } from '@material-ui/core';
 import {
@@ -13,12 +13,25 @@ import { useAuth0 } from '@auth0/auth0-react';
 
 const Chat = () => {
   const chatContext = useContext(ChatContext);
-  const { getChatUserList, chatUsers } = chatContext;
+  const {
+    getChatUserList,
+    chatUsers,
+    getCurrentChat,
+    currentChat,
+    createMessage,
+  } = chatContext;
   const classes = useStyles();
   const { user } = useAuth0();
+  const [chatUser, setChatUser] = useState(null);
+
   useEffect(() => {
     getChatUserList(user.sub);
-  }, []);
+    if (chatUser) {
+      getCurrentChat(user.sub, chatUser.dog_id);
+    }
+    //eslint-disable-next-line
+  }, [chatUser]);
+
   return (
     <div>
       <Grid container>
@@ -29,7 +42,13 @@ const Chat = () => {
       <Grid container component={Paper} className={classes.chatSection}>
         <Grid item={true} xs={3} className={classes.borderRight500}>
           <List>
-            <UserItem id='current-chat-user' dog={chatUsers[0]} />
+            {chatUser && (
+              <UserItem
+                id='current-chat-user'
+                dog={chatUser}
+                setChatUser={setChatUser}
+              />
+            )}
           </List>
           <Divider />
           <Grid item={true} xs={12} style={{ padding: '10px' }}>
@@ -37,16 +56,26 @@ const Chat = () => {
           </Grid>
           <Divider />
           <List id='user-chats'>
-            {chatUsers.length &&
-              chatUsers.map((dog) => (
-                <UserItem key={`dog_id_${dog.dog_id}`} dog={dog} />
-              ))}
+            {chatUsers.length
+              ? chatUsers.map((dog) => (
+                  <UserItem
+                    key={`dog_id_${dog.dog_id}`}
+                    dog={dog}
+                    setChatUser={setChatUser}
+                  />
+                ))
+              : null}
           </List>
         </Grid>
         <Grid item={true} xs={9}>
-          <CurrentChat classes={classes} />
+          <CurrentChat classes={classes} chatMessages={currentChat} />
           <Divider />
-          <MessageInputArea />
+          <MessageInputArea
+            chatUser={chatUser}
+            userId={user.sub}
+            createMessage={createMessage}
+            getCurrentChat={getCurrentChat}
+          />
         </Grid>
       </Grid>
     </div>
