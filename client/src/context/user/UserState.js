@@ -55,12 +55,13 @@ const UserState = (props) => {
         },
         body: JSON.stringify(userObj),
       };
-      const response = await fetch(`${serverUrl}/api/users/create`, options);
-      const user = await response.json();
-      await dispatch({
-        type: GET_USER_INFO,
-        payload: user,
-      });
+      await fetch(`${serverUrl}/api/users/create`, options);
+      // const user = await response.json();
+      // await console.log({ user });
+      // await dispatch({
+      //   type: GET_USER_INFO,
+      //   payload: user,
+      // });
       history.push('/');
       return;
     } catch (err) {
