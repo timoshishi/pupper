@@ -6,21 +6,39 @@ import ChatIcon from '@material-ui/icons/Chat';
 import PeopleAltIcon from '@material-ui/icons/PeopleAlt';
 import { Link } from 'react-router-dom';
 import DogsContext from '../../context/dogs/dogsContext';
+import ChatContext from '../../context/chat/chatContext';
+import { useAuth0 } from '@auth0/auth0-react';
 
 const AuthNav = () => {
   const dogsContext = useContext(DogsContext);
   const { newMatchCount } = dogsContext;
+  const chatContext = useContext(ChatContext);
+  const {
+    newMessageCount,
+    clearNewMessageCount,
+    getChatUserList,
+  } = chatContext;
+  const { user } = useAuth0();
   const [matchCount, setMatchCount] = useState(newMatchCount);
   useEffect(() => {
     setMatchCount(newMatchCount);
   }, [newMatchCount]);
+
   return (
     <>
-      <IconButton aria-label='show 4 new mails' color='inherit'>
-        <Badge badgeContent={4} color='secondary'>
-          <ChatIcon />
-        </Badge>
-      </IconButton>
+      <Link to='/chat' style={{ color: 'white' }}>
+        <IconButton
+          aria-label='show 4 new mails'
+          color='inherit'
+          onClick={async () => {
+            await getChatUserList(user.sub);
+            clearNewMessageCount();
+          }}>
+          <Badge badgeContent={newMessageCount} color='secondary'>
+            <ChatIcon />
+          </Badge>
+        </IconButton>
+      </Link>
       <Link to='/matches' style={{ color: 'white' }}>
         <IconButton aria-label='show 17 new notifications' color='inherit'>
           <Badge badgeContent={matchCount} color='secondary'>

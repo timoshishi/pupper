@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import {
@@ -13,7 +13,11 @@ import {
   ListItemSecondaryAction,
 } from '@material-ui/core';
 import ForumIcon from '@material-ui/icons/Forum';
+import ChatContext from '../../context/chat/chatContext';
+
 const Match = ({ dog }) => {
+  const chatContext = useContext(ChatContext);
+  const { setChatUser } = chatContext;
   return (
     <>
       <ListItem>
@@ -26,7 +30,7 @@ const Match = ({ dog }) => {
             <Typography>Breed: {dog.breed}</Typography>
           </div>
           <ListItemSecondaryAction style={{ marginRight: '1rem' }}>
-            <Link to={`/chat/${dog.name}`}>
+            <Link to={`/chat`} onClick={() => setChatUser(dog)}>
               <IconButton aria-label={`Show new notifications`} edge='end'>
                 {/* <Badge badgeContent={17} color='secondary'> */}
                 <ForumIcon />

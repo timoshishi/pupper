@@ -32,4 +32,4 @@ interestsRouter.post('/:dogId', checkJwt, async (req, res) => {
   */
 interestsRouter.post('/create', checkJwt, async (req, res) => {});
 
-module.exports = interestsRouter;
+module.exports = { interestsRouter };

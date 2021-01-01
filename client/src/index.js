@@ -7,14 +7,17 @@ import Auth0ProviderWithHistory from './auth/auth0-provider-with-history';
 import { CssBaseline } from '@material-ui/core';
 import UserState from './context/user/UserState';
 import DogsState from './context/dogs/DogsState';
+import ChatState from './context/chat/ChatState';
 
 ReactDOM.render(
   <Router>
     <Auth0ProviderWithHistory>
       <UserState>
         <DogsState>
-          <CssBaseline />
-          <App />
+          <ChatState>
+            <CssBaseline />
+            <App />
+          </ChatState>
         </DogsState>
       </UserState>
     </Auth0ProviderWithHistory>
