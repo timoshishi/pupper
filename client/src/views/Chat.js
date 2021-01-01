@@ -7,12 +7,15 @@ import {
   UserSearch,
   CurrentChat,
   ChatHeader,
+  UserList,
 } from '../components/Chat';
 import ChatContext from '../context/chat/chatContext';
 import { useAuth0 } from '@auth0/auth0-react';
 
 const Chat = () => {
   const chatContext = useContext(ChatContext);
+  const classes = useStyles();
+  const { user } = useAuth0();
   const {
     getChatUserList,
     chatUsers,
@@ -22,16 +25,25 @@ const Chat = () => {
     chatUser,
     setChatUser,
   } = chatContext;
-  const classes = useStyles();
-  const { user } = useAuth0();
+  const [filteredUsers, setFilteredUsers] = useState(chatUsers);
+  const [searchVal, setSearchVal] = useState('');
 
   useEffect(() => {
     getChatUserList(user.sub);
     if (chatUser) {
       getCurrentChat(user.sub, chatUser.dog_id);
     }
+    filterUsers(searchVal);
     //eslint-disable-next-line
-  }, [chatUser]);
+  }, [chatUser, searchVal]);
+
+  const filterUsers = (searchVal) => {
+    const searchedUsers = chatUsers.filter((user) => {
+      console.log({ user, searchVal });
+      return user.name.toLowerCase().includes(searchVal.toLowerCase());
+    });
+    setFilteredUsers(searchedUsers);
+  };
 
   return (
     <div>
@@ -43,6 +55,7 @@ const Chat = () => {
       <Grid container component={Paper} className={classes.chatSection}>
         <Grid item={true} xs={3} className={classes.borderRight500}>
           <List>
+            {/* User that you are currently chatting with */}
             {chatUser && (
               <UserItem
                 id='current-chat-user'
@@ -53,24 +66,20 @@ const Chat = () => {
           </List>
           <Divider />
           <Grid item={true} xs={12} style={{ padding: '10px' }}>
-            <UserSearch />
+            {/* Search bar for finding users with active chat */}
+            <UserSearch searchVal={searchVal} setSearchVal={setSearchVal} />
           </Grid>
           <Divider />
-          <List id='user-chats'>
-            {chatUsers.length
-              ? chatUsers.map((dog) => (
-                  <UserItem
-                    key={`dog_id_${dog.dog_id}`}
-                    dog={dog}
-                    setChatUser={setChatUser}
-                  />
-                ))
-              : null}
-          </List>
+          {/* Filtered List of users with active chats */}
+          {filteredUsers.length ? (
+            <UserList setChatUser={setChatUser} chatUsers={filteredUsers} />
+          ) : null}
         </Grid>
         <Grid item={true} xs={9}>
+          {/* Messages for the current chat being displayed */}
           <CurrentChat classes={classes} chatMessages={currentChat} />
           <Divider />
+          {/* Area for sending a message */}
           <MessageInputArea
             chatUser={chatUser}
             userId={user.sub}
