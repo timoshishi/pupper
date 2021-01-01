@@ -32,4 +32,4 @@ const woofBot = () => {
   return sentence.join(' ');
 };
 
-module.exports = woofBot;
+export default woofBot;
