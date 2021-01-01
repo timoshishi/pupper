@@ -53,13 +53,6 @@ const Swiper = ({ dogs }) => {
             })
           : null}
       </ReactSwiper>
-      {dogs
-        ? dogs.map((dog, i) => {
-            return (
-              <pre key={`dog_id_${dog.dog_id}`}>{`${JSON.stringify(dog)}`}</pre>
-            );
-          })
-        : null}
     </div>
   );
 };

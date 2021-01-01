@@ -2,13 +2,14 @@ import React, { useReducer } from 'react';
 import ChatContext from './chatContext';
 import chatReducer from './chatReducer';
 import { useAuth0 } from '@auth0/auth0-react';
-import { GET_CURRENT_CHAT, GET_CHAT_USER_LIST } from '../types';
+import { GET_CURRENT_CHAT, GET_CHAT_USER_LIST, SET_CHAT_USER } from '../types';
 const serverUrl = process.env.REACT_APP_SERVER_URL;
 
 const ChatState = (props) => {
   const initialState = {
     currentChat: [],
     chatUsers: [],
+    chatUser: null,
   };
   const { getAccessTokenSilently } = useAuth0();
   const [state, dispatch] = useReducer(chatReducer, initialState);
@@ -81,15 +82,22 @@ const ChatState = (props) => {
       console.error('Error @ ChatState getUser', err.message);
     }
   };
-
+  const setChatUser = (userObj) => {
+    dispatch({
+      type: SET_CHAT_USER,
+      payload: userObj,
+    });
+  };
   return (
     <ChatContext.Provider
       value={{
         currentChat: state.currentChat,
         chatUsers: state.chatUsers,
+        chatUser: state.chatUser,
         createMessage,
         getCurrentChat,
         getChatUserList,
+        setChatUser,
       }}>
       {props.children}
     </ChatContext.Provider>

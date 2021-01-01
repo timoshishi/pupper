@@ -19,10 +19,11 @@ const Chat = () => {
     getCurrentChat,
     currentChat,
     createMessage,
+    chatUser,
+    setChatUser,
   } = chatContext;
   const classes = useStyles();
   const { user } = useAuth0();
-  const [chatUser, setChatUser] = useState(null);
 
   useEffect(() => {
     getChatUserList(user.sub);

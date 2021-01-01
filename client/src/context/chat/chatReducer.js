@@ -1,4 +1,9 @@
-import { CREATE_MESSAGE, GET_CURRENT_CHAT, GET_CHAT_USER_LIST } from '../types';
+import {
+  CREATE_MESSAGE,
+  GET_CURRENT_CHAT,
+  GET_CHAT_USER_LIST,
+  SET_CHAT_USER,
+} from '../types';
 
 const chatReducer = (state, action) => {
   const { payload, type } = action;
@@ -16,6 +21,11 @@ const chatReducer = (state, action) => {
       return {
         ...state,
         chatUsers: payload,
+      };
+    case SET_CHAT_USER:
+      return {
+        ...state,
+        chatUser: payload,
       };
     default:
       return state;
