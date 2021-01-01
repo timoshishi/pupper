@@ -3,7 +3,7 @@ DROP TABLE matches;
 CREATE TABLE IF NOT EXISTS matches(
   id serial primary key,
   user_id varchar(100),
-  dog_id int,
+  dog_id int UNIQUE,
   created_at timestamptz
 );
 -- CREATE TABLE IF NOT EXISTS matches(

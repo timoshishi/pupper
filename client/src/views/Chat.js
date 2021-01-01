@@ -11,6 +11,7 @@ import {
 } from '../components/Chat';
 import ChatContext from '../context/chat/chatContext';
 import { useAuth0 } from '@auth0/auth0-react';
+import { Loading } from '../components';
 
 const Chat = () => {
   const chatContext = useContext(ChatContext);
@@ -39,7 +40,6 @@ const Chat = () => {
 
   const filterUsers = (searchVal) => {
     const searchedUsers = chatUsers.filter((user) => {
-      console.log({ user, searchVal });
       return user.name.toLowerCase().includes(searchVal.toLowerCase());
     });
     setFilteredUsers(searchedUsers);
@@ -67,7 +67,9 @@ const Chat = () => {
           <Divider />
           <Grid item={true} xs={12} style={{ padding: '10px' }}>
             {/* Search bar for finding users with active chat */}
-            <UserSearch searchVal={searchVal} setSearchVal={setSearchVal} />
+            {chatUsers.length ? (
+              <UserSearch searchVal={searchVal} setSearchVal={setSearchVal} />
+            ) : null}
           </Grid>
           <Divider />
           {/* Filtered List of users with active chats */}

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { TextField } from '@material-ui/core';
 const UserSearch = ({ searchVal, setSearchVal }) => {
@@ -15,8 +15,8 @@ const UserSearch = ({ searchVal, setSearchVal }) => {
 };
 
 UserSearch.propTypes = {
-  chatUsers: PropTypes.array.isRequired,
-  setFilteredUsers: PropTypes.func.isRequired,
+  searchVal: PropTypes.string.isRequired,
+  setSearchVal: PropTypes.func.isRequired,
 };
 
 export default UserSearch;

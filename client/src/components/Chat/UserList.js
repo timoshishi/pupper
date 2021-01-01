@@ -16,6 +16,9 @@ const UserList = ({ chatUsers, setChatUser }) => {
   );
 };
 
-UserList.propTypes = {};
+UserList.propTypes = {
+  chatUsers: PropTypes.array.isRequired,
+  setChatUser: PropTypes.func.isRequired,
+};
 
 export default UserList;

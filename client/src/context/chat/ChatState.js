@@ -2,7 +2,13 @@ import React, { useReducer } from 'react';
 import ChatContext from './chatContext';
 import chatReducer from './chatReducer';
 import { useAuth0 } from '@auth0/auth0-react';
-import { GET_CURRENT_CHAT, GET_CHAT_USER_LIST, SET_CHAT_USER } from '../types';
+import {
+  GET_CURRENT_CHAT,
+  GET_CHAT_USER_LIST,
+  SET_CHAT_USER,
+  INCREMENT_NEW_MESSAGE_COUNT,
+  CLEAR_NEW_MESSAGE_COUNT,
+} from '../types';
 const serverUrl = process.env.REACT_APP_SERVER_URL;
 
 const ChatState = (props) => {
@@ -10,6 +16,7 @@ const ChatState = (props) => {
     currentChat: [],
     chatUsers: [],
     chatUser: null,
+    newMessageCount: 0,
   };
   const { getAccessTokenSilently } = useAuth0();
   const [state, dispatch] = useReducer(chatReducer, initialState);
@@ -82,10 +89,24 @@ const ChatState = (props) => {
       console.error('Error @ ChatState getUser', err.message);
     }
   };
+  //Set the currently displayed chat user on the UserList in Chat
   const setChatUser = (userObj) => {
     dispatch({
       type: SET_CHAT_USER,
       payload: userObj,
+    });
+  };
+  //ADD TO THE NEW MESSAGE COUNT
+  const incrementNewMessageCount = () => {
+    return dispatch({
+      type: INCREMENT_NEW_MESSAGE_COUNT,
+      payload: null,
+    });
+  };
+  const clearNewMessageCount = () => {
+    return dispatch({
+      type: CLEAR_NEW_MESSAGE_COUNT,
+      payload: null,
     });
   };
   return (
@@ -94,10 +115,13 @@ const ChatState = (props) => {
         currentChat: state.currentChat,
         chatUsers: state.chatUsers,
         chatUser: state.chatUser,
+        newMessageCount: state.newMessageCount,
         createMessage,
         getCurrentChat,
         getChatUserList,
         setChatUser,
+        clearNewMessageCount,
+        incrementNewMessageCount,
       }}>
       {props.children}
     </ChatContext.Provider>
