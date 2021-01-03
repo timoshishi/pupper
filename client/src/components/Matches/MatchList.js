@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import Match from './Match';
 import { Box, Divider, List } from '@material-ui/core';

@@ -7,7 +7,8 @@ const InterestChips = ({ interests, handleInterests }) => {
       display='flex'
       alignItems='center'
       flexWrap='wrap'
-      justifyContent='space-around'>
+      justifyContent='space-around'
+      maxWidth='40vh'>
       {Object.keys(interests).map((interest, i) => {
         const name = interest.replaceAll('_', ' ');
         return (

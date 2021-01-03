@@ -1,10 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { TextField, Box } from '@material-ui/core';
-
-const AboutMeStep = ({ summary, about, handleFormData, name, zip_code }) => {
+import PhotoUpload from './PhotoUpload';
+const AboutMeStep = ({
+  summary,
+  about,
+  handleFormData,
+  name,
+  userInfo,
+  setUserInfo,
+}) => {
   return (
-    <>
+    <Box maxWidth='60vh'>
       <Box my={2}>
         <>
           <TextField
@@ -43,7 +50,8 @@ const AboutMeStep = ({ summary, about, handleFormData, name, zip_code }) => {
         onChange={handleFormData}
         value={about}
       />
-    </>
+      <PhotoUpload userInfo={userInfo} setUserInfo={setUserInfo} />
+    </Box>
   );
 };
 
@@ -51,8 +59,7 @@ AboutMeStep.propTypes = {
   handleFormData: PropTypes.func.isRequired,
   about: PropTypes.string.isRequired,
   summary: PropTypes.string.isRequired,
-  name: PropTypes.func.isRequired,
-  zip_code: PropTypes.number.isRequired,
+  name: PropTypes.string.isRequired,
 };
 
 export default AboutMeStep;

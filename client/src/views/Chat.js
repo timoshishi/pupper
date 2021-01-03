@@ -11,7 +11,6 @@ import {
 } from '../components/Chat';
 import ChatContext from '../context/chat/chatContext';
 import { useAuth0 } from '@auth0/auth0-react';
-import { Loading } from '../components';
 
 const Chat = () => {
   const chatContext = useContext(ChatContext);
