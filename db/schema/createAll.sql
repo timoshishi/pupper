@@ -62,7 +62,9 @@ CREATE TABLE IF NOT EXISTS chat(
         REFERENCES dogs(dog_id)
 );
 
--- DOG STUFF! --
+-- ********************************************** --
+-- ************** DOG STUFF! ******************** --
+-- ********************************************** --
 
 DROP TABLE dog_interests;
 DROP TABLE dogs;

@@ -5,8 +5,8 @@ import { useHistory } from 'react-router-dom';
 import UserContext from '../context/user/userContext';
 
 import {
-  CreateProfile1,
-  CreateProfile2,
+  SpeciesDistanceSelectStep,
+  AboutMeStep,
   InterestChips,
   PhotoUpload,
   Stepper,
@@ -62,14 +62,14 @@ const CreateProfile = () => {
     e.preventDefault();
     const userInterests = {};
     //transform booleans to insertable values
-    Object.keys(interests).forEach((interest) =>
-      interests[interest]
-        ? (userInterests[interest] = 't')
-        : (userInterests[interest] = 'f')
-    );
+    // Object.keys(interests).forEach((interest) =>
+    //   interests[interest]
+    //     ? (userInterests[interest] = 't')
+    //     : (userInterests[interest] = 'f')
+    // );
     const userObj = {
       ...userInfo,
-      interests: userInterests,
+      interests,
     };
     try {
       await createUser(userObj);
@@ -87,14 +87,15 @@ const CreateProfile = () => {
             <form noValidate autoComplete='off'>
               <div>
                 {step === 1 && (
-                  <CreateProfile1
+                  <SpeciesDistanceSelectStep
                     handleFormData={handleFormData}
-                    name={userInfo.name}
                     zip_code={userInfo.zip_code}
                   />
                 )}
                 {step === 2 && (
-                  <CreateProfile2
+                  <AboutMeStep
+                    name={userInfo.name}
+                    zip_code={userInfo.zip_code}
                     handleFormData={handleFormData}
                     about={userInfo.about}
                     summary={userInfo.summary}

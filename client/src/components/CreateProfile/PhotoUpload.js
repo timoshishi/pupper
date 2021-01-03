@@ -45,7 +45,7 @@ const PhotoUpload = ({ userInfo, setUserInfo }) => {
 
   return (
     <div>
-      <h1>photo upload</h1>
+      <h1>Add A Photo</h1>
       <input
         type='file'
         id='file-upload'

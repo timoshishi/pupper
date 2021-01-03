@@ -15,12 +15,12 @@ import {
 import ForumIcon from '@material-ui/icons/Forum';
 import ChatContext from '../../context/chat/chatContext';
 
-const Match = ({ dog }) => {
+const Match = ({ dog, handleOpen }) => {
   const chatContext = useContext(ChatContext);
   const { setChatUser } = chatContext;
   return (
     <>
-      <ListItem>
+      <ListItem onClick={() => handleOpen(dog)}>
         <Box display='flex'>
           <ListItemIcon>
             <Avatar src={dog.photos[0]} alt={dog.name} />
@@ -47,6 +47,7 @@ const Match = ({ dog }) => {
 
 Match.propTypes = {
   dog: PropTypes.object.isRequired,
+  handleOpen: PropTypes.func.isRequired,
 };
 
 export default Match;
