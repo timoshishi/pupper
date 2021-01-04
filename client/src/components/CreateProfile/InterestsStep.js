@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Box, Chip } from '@material-ui/core';
+
 const InterestsStep = ({ interests, handleInterests, isForm }) => {
   return (
     <Box

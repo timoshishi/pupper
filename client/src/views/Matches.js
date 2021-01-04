@@ -2,6 +2,7 @@ import React, { useEffect, useContext } from 'react';
 import DogsContext from '../context/dogs/dogsContext';
 import { useAuth0 } from '@auth0/auth0-react';
 import { MatchList } from '../components/Matches';
+import { Box, Typography } from '@material-ui/core';
 
 const Matches = () => {
   const dogsContext = useContext(DogsContext);
@@ -14,8 +15,10 @@ const Matches = () => {
   }, []);
 
   return (
-    <div>
-      <h1>Matches</h1>
+    <Box width='40vw'>
+      <Typography textAlign='center' variant='h5'>
+        Matches
+      </Typography>
       {matches.length ? (
         <MatchList
           matches={matches}
@@ -23,7 +26,7 @@ const Matches = () => {
           clearNewMatches={clearNewMatches}
         />
       ) : null}
-    </div>
+    </Box>
   );
 };
 

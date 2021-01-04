@@ -11,7 +11,7 @@ import DogsContext from '../../context/dogs/dogsContext';
 import ChatContext from '../../context/chat/chatContext';
 import { useAuth0 } from '@auth0/auth0-react';
 import woofBot from '../../utils/woofBot';
-
+import PuppyModal from '../PuppyPopup/PuppyModal';
 SwiperCore.use([Lazy]);
 
 const Swiper = ({ dogs }) => {
@@ -35,6 +35,16 @@ const Swiper = ({ dogs }) => {
     }, timeout);
   };
 
+  const [open, setOpen] = useState(false);
+  const [dog, setDog] = useState(null);
+  const handleOpen = (dog) => {
+    setDog(dog);
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   const handleDogs = (dir) => {
     if (dir === 'prev') {
       createMatch(user.sub, dogArr[0].dog_id);
@@ -54,6 +64,12 @@ const Swiper = ({ dogs }) => {
 
   return (
     <Box display='flex' align='center' my={5}>
+      <PuppyModal
+        handleOpen={handleOpen}
+        handleClose={handleClose}
+        open={open}
+        dog={dog}
+      />
       <ReactSwiper
         spaceBetween={20}
         slidesPerView={1}
@@ -68,7 +84,7 @@ const Swiper = ({ dogs }) => {
           ? currentDogs.map((dog) => {
               return (
                 <SwiperSlide key={`img_src_${dog.dog_id}`}>
-                  <Slide dog={dog} />
+                  <Slide dog={dog} setDog={setDog} handleOpen={handleOpen} />
                 </SwiperSlide>
               );
             })

@@ -32,7 +32,6 @@ function App() {
           <ProtectedRoute path='/chat' component={Chat} />
           <ProtectedRoute patch='/profile' component={UserProfile} />
         </Switch>
-        <Footer />
       </Container>
     </>
   );

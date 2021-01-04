@@ -1,11 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import Match from './Match';
 import { Box, Divider, List } from '@material-ui/core';
-import PuppyProfileModal from '../../PuppyPopup/PuppyProfileModal';
+import PuppyModal from '../PuppyPopup/PuppyModal';
 const MatchList = ({ matches, userId }) => {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
+  const [dog, setDog] = useState(null);
   const handleOpen = (dog) => {
+    setDog(dog);
     setOpen(true);
   };
   const handleClose = () => {
@@ -15,10 +17,11 @@ const MatchList = ({ matches, userId }) => {
     <Box>
       <Divider />
       <List />
-      <PuppyProfileModal
+      <PuppyModal
         handleOpen={handleOpen}
         handleClose={handleClose}
         open={open}
+        dog={dog}
       />
       {matches.map((dog) => (
         <Match
