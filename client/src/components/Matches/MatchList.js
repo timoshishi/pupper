@@ -6,7 +6,6 @@ import PuppyProfileModal from '../../PuppyPopup/PuppyProfileModal';
 const MatchList = ({ matches, userId }) => {
   const [open, setOpen] = React.useState(false);
   const handleOpen = (dog) => {
-    console.log(dog);
     setOpen(true);
   };
   const handleClose = () => {

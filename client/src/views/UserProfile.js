@@ -4,7 +4,7 @@ import { Box, Button, Grid, Typography } from '@material-ui/core';
 import { Loading } from '../components';
 import { InterestsStep } from '../components/CreateProfile';
 
-const Profile = () => {
+const UserProfile = () => {
   const { userInfo } = useContext(UserContext);
 
   const { about, interests, name, photos, summary, zip_code } = userInfo;
@@ -60,4 +60,4 @@ const Profile = () => {
   );
 };
 
-export default Profile;
+export default UserProfile;
