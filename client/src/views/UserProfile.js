@@ -8,6 +8,8 @@ const UserProfile = () => {
   const { userInfo } = useContext(UserContext);
 
   const { about, interests, name, photos, summary, zip_code } = userInfo;
+  const defaultImage =
+    'https://puppr-photos.s3.us-east-2.amazonaws.com/Portrait_Placeholder.png';
   if (!userInfo) {
     return <Loading />;
   }
@@ -26,7 +28,7 @@ const UserProfile = () => {
                   {name}
                 </Typography>
                 <img
-                  src={photos[0]}
+                  src={photos[0] ? photos[0] : defaultImage}
                   alt='Profile'
                   style={{ maxWidth: '30vw', margin: 'auto' }}
                 />{' '}

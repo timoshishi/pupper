@@ -32,11 +32,12 @@ const UserState = (props) => {
         return history.push('/create-profile');
       } else {
         const data = await response.json();
+        console.log({ data });
         dispatch({
           type: GET_USER_INFO,
           payload: data,
         });
-        // history.push('/');
+        history.push('/');
         return;
       }
     } catch (err) {

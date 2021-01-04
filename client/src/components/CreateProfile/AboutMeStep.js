@@ -28,6 +28,7 @@ const AboutMeStep = ({
         </>
 
         <TextField
+          required
           id='standard-multiline-flexible'
           label='Your Headline'
           multiline
@@ -40,6 +41,7 @@ const AboutMeStep = ({
         />
       </Box>
       <TextField
+        required
         id='standard-multiline-flexible'
         label='Tell us a little about yourself'
         multiline
