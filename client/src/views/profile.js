@@ -3,11 +3,10 @@ import UserContext from '../context/user/userContext';
 import { Box, Button, Grid, Typography } from '@material-ui/core';
 import { Loading } from '../components';
 import { InterestsStep } from '../components/CreateProfile';
+
 const Profile = () => {
-  const { userInfo, getUser } = useContext(UserContext);
-  const [filteredInterests, setFilteredInterests] = useState(
-    userInfo.interests
-  );
+  const { userInfo } = useContext(UserContext);
+
   const { about, interests, name, photos, summary, zip_code } = userInfo;
   if (!userInfo) {
     return <Loading />;
