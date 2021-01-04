@@ -1,25 +1,15 @@
-import React from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
-import clsx from 'clsx';
-import Card from '@material-ui/core/Card';
-import CardHeader from '@material-ui/core/CardHeader';
-import CardMedia from '@material-ui/core/CardMedia';
-import CardContent from '@material-ui/core/CardContent';
-import CardActions from '@material-ui/core/CardActions';
-import Collapse from '@material-ui/core/Collapse';
-import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
-import { red } from '@material-ui/core/colors';
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import ShareIcon from '@material-ui/icons/Share';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
-import { InterestChips } from '../CreateProfile';
+import { Card, CardHeader, CardMedia, IconButton } from '@material-ui/core';
+import { red, white } from '@material-ui/core/colors';
+import { InfoOutlined } from '@material-ui/icons';
+
+const zipApiKey = process.env.REACT_APP_ZIP_API_KEY;
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    maxWidth: 345,
+    maxWidth: `80vw`,
   },
   media: {
     height: 0,
@@ -38,63 +28,35 @@ const useStyles = makeStyles((theme) => ({
   avatar: {
     backgroundColor: red[500],
   },
+  header: {
+    marginTop: '-7rem',
+    color: 'white',
+  },
 }));
 
-const Slide = ({ dog }) => {
+const Slide = ({ dog, handleOpen }) => {
   const classes = useStyles();
-  const [expanded, setExpanded] = React.useState(false);
-
-  const handleExpandClick = () => {
-    setExpanded(!expanded);
-  };
-
   return (
     <Card className={classes.root}>
-      <CardHeader
-        action={
-          <IconButton aria-label='settings'>
-            <MoreVertIcon />
-          </IconButton>
-        }
-        title={dog.name}
-        subheader={dog.title}
-      />
       <CardMedia
         className={classes.media}
         image={dog.photos[0]}
         title='puppy'
       />
-      <CardContent>
-        <Typography>{dog.breed}</Typography>
-        <Typography>Color: {dog.color}</Typography>
-        <InterestChips interests={dog.interests} />
-        <Typography
-          variant='body2'
-          color='textSecondary'
-          component='p'></Typography>
-      </CardContent>
-      <CardActions disableSpacing>
-        <IconButton aria-label='add to favorites'>
-          <FavoriteIcon />
-        </IconButton>
-        <IconButton aria-label='share'>
-          <ShareIcon />
-        </IconButton>
-        <IconButton
-          className={clsx(classes.expand, {
-            [classes.expandOpen]: expanded,
-          })}
-          onClick={handleExpandClick}
-          aria-expanded={expanded}
-          aria-label='show more'>
-          <ExpandMoreIcon />
-        </IconButton>
-      </CardActions>
-      <Collapse in={expanded} timeout='auto' unmountOnExit>
-        <CardContent>
-          <Typography paragraph>{dog.about}</Typography>
-        </CardContent>
-      </Collapse>
+      <CardHeader
+        action={
+          <IconButton
+            aria-label='more-info'
+            onClick={() => handleOpen(dog)}
+            size='medium'>
+            <InfoOutlined style={{ color: 'white' }} fontSize='large' />
+          </IconButton>
+        }
+        align='left'
+        title={dog.name}
+        subheader={dog.title}
+        className={classes.header}
+      />
     </Card>
   );
 };

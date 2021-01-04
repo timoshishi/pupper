@@ -1,12 +1,34 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { TextField, Box } from '@material-ui/core';
-
-const CreateProfile2 = ({ summary, about, handleFormData }) => {
+import PhotoUpload from './PhotoUpload';
+const AboutMeStep = ({
+  summary,
+  about,
+  handleFormData,
+  name,
+  userInfo,
+  setUserInfo,
+}) => {
   return (
-    <>
+    <Box maxWidth='60vh'>
       <Box my={2}>
+        <>
+          <TextField
+            required
+            id='standard-required'
+            label='Name'
+            placeholder='Name'
+            m='2'
+            fullWidth
+            name='name'
+            value={name}
+            onChange={handleFormData}
+          />
+        </>
+
         <TextField
+          required
           id='standard-multiline-flexible'
           label='Your Headline'
           multiline
@@ -19,6 +41,7 @@ const CreateProfile2 = ({ summary, about, handleFormData }) => {
         />
       </Box>
       <TextField
+        required
         id='standard-multiline-flexible'
         label='Tell us a little about yourself'
         multiline
@@ -29,14 +52,16 @@ const CreateProfile2 = ({ summary, about, handleFormData }) => {
         onChange={handleFormData}
         value={about}
       />
-    </>
+      <PhotoUpload userInfo={userInfo} setUserInfo={setUserInfo} />
+    </Box>
   );
 };
 
-CreateProfile2.propTypes = {
+AboutMeStep.propTypes = {
   handleFormData: PropTypes.func.isRequired,
   about: PropTypes.string.isRequired,
   summary: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
 };
 
-export default CreateProfile2;
+export default AboutMeStep;

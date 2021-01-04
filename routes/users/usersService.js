@@ -8,16 +8,24 @@ const getUserInfo = async (userId) => {
       'SELECT walkies, scritches, the_beach, playing_fetch, nap_time, running, frolicking, cuddles, wrestling, tug_of_war FROM interests WHERE user_id = $1';
 
     const res = await pool.query(userQueryString, [userId]);
+
     const userInfo = res.rows[0];
     const interestsRes = await pool.query(interestsQueryString, [userId]);
     const interests = interestsRes.rows[0];
-
+    const filteredInterests = {};
+    if (userInfo) {
+      Object.keys(interests).forEach((interest) => {
+        if (interest !== 'user_id' && interests[interest]) {
+          filteredInterests[interest] = interests[interest];
+        }
+      });
+    }
     return {
       ...userInfo,
-      interests,
+      interests: filteredInterests,
     };
   } catch (err) {
-    return console.error('at getUserInfo', err.message);
+    return console.error('at getUserInfo', err.message, err.stack);
   }
 };
 

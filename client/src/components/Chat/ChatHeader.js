@@ -1,10 +1,12 @@
 import React from 'react';
-import { Typography } from '@material-ui/core';
+import { Box, Typography } from '@material-ui/core';
 const ChatHeader = () => {
   return (
-    <Typography variant='h5' className='header-message'>
-      Chat
-    </Typography>
+    <Box display='flex' justify='center' align='center'>
+      <Typography variant='h5' className='header-message'>
+        Chat
+      </Typography>
+    </Box>
   );
 };
 

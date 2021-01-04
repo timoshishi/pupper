@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
-import { Button, Card } from '@material-ui/core';
+import { Button, Typography, Box } from '@material-ui/core';
 import PropTypes from 'prop-types';
 
 const PhotoUpload = ({ userInfo, setUserInfo }) => {
@@ -8,7 +8,8 @@ const PhotoUpload = ({ userInfo, setUserInfo }) => {
   const { getAccessTokenSilently, user } = useAuth0();
   const [image, setImage] = useState(null);
   const [imageUrl, setImageUrl] = useState(null);
-
+  const defaultImage =
+    'https://puppr-photos.s3.us-east-2.amazonaws.com/Portrait_Placeholder.png';
   const handleImageSelect = async (e) => {
     const files = e.target.files;
     const formData = new FormData();
@@ -44,23 +45,34 @@ const PhotoUpload = ({ userInfo, setUserInfo }) => {
   };
 
   return (
-    <div>
-      <h1>photo upload</h1>
-      <input
-        type='file'
-        id='file-upload'
-        onChange={handleImageSelect}
-        accept='image/x-png,image/jpeg'
-      />
-      <Button onClick={handleImageSubmit} disabled={imageUrl ? true : false}>
-        Add Photo
-      </Button>
-      {userInfo.photos.length ? (
-        <Card style={{ maxHeight: '6rem', maxWidth: '4rem' }}>
-          <img src={imageUrl} alt='profile' />
-        </Card>
-      ) : null}
-    </div>
+    <Box display='flex' my={2}>
+      <Box display='flex' flexDirection='column'>
+        <Typography variant='h5'>Add A Photo</Typography>
+        <input
+          type='file'
+          id='file-upload'
+          onChange={handleImageSelect}
+          accept='image/x-png,image/jpeg'
+          style={{ marginLeft: '2rem' }}
+        />
+        <Box marginTop='3rem'>
+          <Button
+            onClick={handleImageSubmit}
+            color='primary'
+            variant='outlined'
+            disabled={!image}>
+            Add Photo
+          </Button>
+        </Box>
+      </Box>
+      <Box maxHeight='5rem'>
+        <img
+          src={!imageUrl ? defaultImage : imageUrl}
+          alt='profile'
+          style={{ maxHeight: '10rem' }}
+        />
+      </Box>
+    </Box>
   );
 };
 PhotoUpload.propTypes = {

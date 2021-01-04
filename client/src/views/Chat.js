@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Paper, Grid, Divider, List } from '@material-ui/core';
+import { Paper, Grid, Divider, List, Box } from '@material-ui/core';
 import {
   UserItem,
   MessageInputArea,
@@ -11,7 +11,6 @@ import {
 } from '../components/Chat';
 import ChatContext from '../context/chat/chatContext';
 import { useAuth0 } from '@auth0/auth0-react';
-import { Loading } from '../components';
 
 const Chat = () => {
   const chatContext = useContext(ChatContext);
@@ -47,11 +46,6 @@ const Chat = () => {
 
   return (
     <div>
-      <Grid container>
-        <Grid item={true} xs={12}>
-          <ChatHeader />
-        </Grid>
-      </Grid>
       <Grid container component={Paper} className={classes.chatSection}>
         <Grid item={true} xs={3} className={classes.borderRight500}>
           <List>
@@ -79,7 +73,11 @@ const Chat = () => {
         </Grid>
         <Grid item={true} xs={9}>
           {/* Messages for the current chat being displayed */}
-          <CurrentChat classes={classes} chatMessages={currentChat} />
+          <CurrentChat
+            classes={classes}
+            chatMessages={currentChat}
+            dog={chatUser}
+          />
           <Divider />
           {/* Area for sending a message */}
           <MessageInputArea
@@ -100,6 +98,7 @@ const useStyles = makeStyles({
   chatSection: {
     width: '100%',
     height: '80vh',
+    marginTop: '3rem',
   },
   headBG: {
     backgroundColor: '#e0e0e0',

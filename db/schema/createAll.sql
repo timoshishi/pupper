@@ -4,7 +4,7 @@ DROP TABLE matches;
 DROP TABLE users;
 
 CREATE TABLE IF NOT EXISTS users(
-  user_id varchar(100) UNIQUE,
+  user_id varchar(100) UNIQUE PRIMARY KEY,
   email varchar(100),
   name varchar(100),
   zip_code int,
@@ -18,7 +18,7 @@ CREATE TABLE IF NOT EXISTS users(
 
 CREATE TABLE IF NOT EXISTS interests(
   id serial primary key,
-  user_id varchar(100) UNIQUE,
+  user_id varchar(100) UNIQUE REFERENCES users ON DELETE CASCADE,
   walkies boolean,
   scritches boolean,
   the_beach boolean,
@@ -36,8 +36,8 @@ CREATE TABLE IF NOT EXISTS interests(
 
 CREATE TABLE IF NOT EXISTS matches(
   id serial primary key,
-  user_id varchar(100),
-  dog_id int UNIQUE,
+  user_id varchar(100) REFERENCES users ON DELETE CASCADE,
+  dog_id int UNIQUE REFERENCES dogs ON DELETE CASCADE,
   created_at timestamptz,
     CONSTRAINT fk_user
       FOREIGN KEY(user_id)
@@ -50,8 +50,8 @@ CREATE TABLE IF NOT EXISTS matches(
 CREATE TABLE IF NOT EXISTS chat(
   id serial primary key,
   from_human boolean,
-  user_id varchar(100),
-  dog_id int,
+  user_id varchar(100) REFERENCES users ON DELETE CASCADE,
+  dog_id int REFERENCES dogs ON DELETE CASCADE,
   body varchar(1000),
   created_at timestamptz,
     CONSTRAINT fk_user
@@ -62,7 +62,9 @@ CREATE TABLE IF NOT EXISTS chat(
         REFERENCES dogs(dog_id)
 );
 
--- DOG STUFF! --
+-- ********************************************** --
+-- ************** DOG STUFF! ******************** --
+-- ********************************************** --
 
 DROP TABLE dog_interests;
 DROP TABLE dogs;
@@ -83,7 +85,7 @@ CREATE TABLE IF NOT EXISTS dogs(
 
 
 CREATE TABLE IF NOT EXISTS dog_interests(
-  dog_id int,
+  dog_id int UNIQUE REFERENCES dogs ON DELETE CASCADE,
   walkies boolean,
   scritches boolean,
   the_beach boolean,

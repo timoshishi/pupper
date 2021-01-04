@@ -1,7 +1,12 @@
-import CreateProfile1 from './CreateProfile1';
-import CreateProfile2 from './CreateProfile2';
-import InterestChips from './InterestChips';
+import SpeciesDistanceSelectStep from './SpeciesDistanceSelectStep';
+import AboutMeStep from './AboutMeStep';
+import InterestsStep from './InterestsStep';
 import PhotoUpload from './PhotoUpload';
 import Stepper from './Stepper';
-
-export { CreateProfile1, CreateProfile2, InterestChips, PhotoUpload, Stepper };
+export {
+  SpeciesDistanceSelectStep,
+  AboutMeStep,
+  InterestsStep,
+  PhotoUpload,
+  Stepper,
+};

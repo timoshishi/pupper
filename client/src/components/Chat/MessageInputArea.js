@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Grid, TextField, Fab } from '@material-ui/core';
-import SendIcon from '@material-ui/icons/Send';
 import woofBot from '../../utils/woofBot';
+import { Telegram } from '@material-ui/icons';
+
 const MessageInputArea = ({
   chatUser,
   userId,
@@ -61,7 +62,7 @@ const MessageInputArea = ({
             disabled={!chatUser}
             // onClick={submitMessage}
           >
-            <SendIcon />
+            <Telegram />
           </Fab>
         </Grid>
       </Grid>

@@ -1,14 +1,13 @@
 import React, { useState, useContext } from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
-import { Box } from '@material-ui/core';
+import { Box, Typography } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
 import UserContext from '../context/user/userContext';
 
 import {
-  CreateProfile1,
-  CreateProfile2,
-  InterestChips,
-  PhotoUpload,
+  SpeciesDistanceSelectStep,
+  AboutMeStep,
+  InterestsStep,
   Stepper,
 } from '../components/CreateProfile';
 
@@ -21,7 +20,7 @@ const CreateProfile = () => {
     user_id: user.sub,
     email: user.email,
     name: '',
-    zip_code: 0,
+    zip_code: '',
     about: '',
     summary: '',
     photos: [],
@@ -41,9 +40,6 @@ const CreateProfile = () => {
     wrestling: false,
     tug_of_war: false,
   });
-
-  const [step, setStep] = useState(1);
-
   const handleFormData = (e) => {
     setUserInfo({
       ...userInfo,
@@ -60,16 +56,10 @@ const CreateProfile = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const userInterests = {};
-    //transform booleans to insertable values
-    Object.keys(interests).forEach((interest) =>
-      interests[interest]
-        ? (userInterests[interest] = 't')
-        : (userInterests[interest] = 'f')
-    );
     const userObj = {
       ...userInfo,
-      interests: userInterests,
+      zip_code: parseInt(userInfo.zip_code),
+      interests,
     };
     try {
       await createUser(userObj);
@@ -77,46 +67,49 @@ const CreateProfile = () => {
       console.error('Error at CreateProfile handleSubmit');
     }
   };
+  //Stepper Props
+  const [activeStep, setActiveStep] = React.useState(0);
 
   return (
     <>
       {!userId ? (
-        <Box display='flex'>
-          <Box m='auto' style={{ width: '80vw' }}>
-            <h1>Create Profile</h1>
-            <form noValidate autoComplete='off'>
+        <Box display='flex' align='center' justify='center'>
+          <Box m='auto' style={{ width: '70vw' }}>
+            <Box my={3}>
+              <Typography variant='h2'>Create Profile</Typography>
+            </Box>
+            <form noValidate autoComplete='off' style={{ minHeight: '30vh' }}>
               <div>
-                {step === 1 && (
-                  <CreateProfile1
+                {activeStep === 0 && (
+                  <SpeciesDistanceSelectStep
                     handleFormData={handleFormData}
-                    name={userInfo.name}
                     zip_code={userInfo.zip_code}
                   />
                 )}
-                {step === 2 && (
-                  <CreateProfile2
+                {activeStep === 1 && (
+                  <AboutMeStep
+                    name={userInfo.name}
                     handleFormData={handleFormData}
                     about={userInfo.about}
                     summary={userInfo.summary}
+                    userInfo={userInfo}
+                    setUserInfo={setUserInfo}
                   />
                 )}
-                {step === 3 && (
-                  <PhotoUpload userInfo={userInfo} setUserInfo={setUserInfo} />
-                )}
-                {step === 4 && (
-                  <InterestChips
+                {activeStep === 2 && (
+                  <InterestsStep
+                    isForm={true}
                     handleInterests={handleInterests}
                     interests={interests}
                   />
                 )}
-                <Stepper
-                  step={step}
-                  setStep={setStep}
-                  maxStep={4}
-                  handleSubmit={handleSubmit}
-                />
               </div>
             </form>
+            <Stepper
+              handleSubmit={handleSubmit}
+              activeStep={activeStep}
+              setActiveStep={setActiveStep}
+            />
           </Box>
         </Box>
       ) : (
