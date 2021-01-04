@@ -32,7 +32,7 @@ const AuthNav = () => {
         <>
           <Link to='/chat' style={{ color: 'white' }}>
             <IconButton
-              aria-label='show 4 new mails'
+              aria-label='messages'
               color='inherit'
               onClick={async () => {
                 await getChatUserList(user.sub);
@@ -50,13 +50,15 @@ const AuthNav = () => {
               </Badge>
             </IconButton>
           </Link>
-          <IconButton
-            edge='end'
-            aria-label='account of current user'
-            aria-haspopup='true'
-            color='inherit'>
-            <AccountCircle />
-          </IconButton>
+          <Link to='/profile' style={{ color: 'white' }}>
+            <IconButton
+              edge='end'
+              aria-label='account'
+              aria-haspopup='true'
+              color='inherit'>
+              <AccountCircle />
+            </IconButton>
+          </Link>
         </>
       )}
     </>

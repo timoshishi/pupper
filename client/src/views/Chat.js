@@ -78,7 +78,11 @@ const Chat = () => {
         </Grid>
         <Grid item={true} xs={9}>
           {/* Messages for the current chat being displayed */}
-          <CurrentChat classes={classes} chatMessages={currentChat} />
+          <CurrentChat
+            classes={classes}
+            chatMessages={currentChat}
+            dog={chatUser}
+          />
           <Divider />
           {/* Area for sending a message */}
           <MessageInputArea

@@ -7,6 +7,7 @@ import AuthNav from './AuthNav';
 import AuthenticationButton from '../AuthButtons/authentication-button';
 import { useAuth0 } from '@auth0/auth0-react';
 import { Link } from 'react-router-dom';
+import { Box } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -33,7 +34,9 @@ const NavBar = () => {
             </Link>
           </Typography>
           {isAuthenticated && <AuthNav />}
-          <AuthenticationButton color='white' />
+          <Box mx={2}>
+            <AuthenticationButton color='white' />
+          </Box>
         </Toolbar>
       </AppBar>
     </div>

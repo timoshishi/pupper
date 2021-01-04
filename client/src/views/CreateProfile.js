@@ -7,7 +7,7 @@ import UserContext from '../context/user/userContext';
 import {
   SpeciesDistanceSelectStep,
   AboutMeStep,
-  InterestChips,
+  InterestsStep,
   Stepper,
 } from '../components/CreateProfile';
 
@@ -97,7 +97,8 @@ const CreateProfile = () => {
                   />
                 )}
                 {activeStep === 2 && (
-                  <InterestChips
+                  <InterestsStep
+                    isForm={true}
                     handleInterests={handleInterests}
                     interests={interests}
                   />

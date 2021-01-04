@@ -1,9 +1,13 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import Message from './Message';
 import { List } from '@material-ui/core';
-const CurrentChat = ({ classes, chatMessages }) => {
+import UserContext from '../../context/user/userContext';
+
+const CurrentChat = ({ classes, chatMessages, dog }) => {
   const listRef = useRef(null);
+  const { userInfo } = useContext(UserContext);
+
   useEffect(() => {
     listRef.current.scrollTop = listRef.current.scrollHeight;
   }, [chatMessages]);
@@ -11,7 +15,12 @@ const CurrentChat = ({ classes, chatMessages }) => {
     <List className={classes.messageArea} id='current-chat' ref={listRef}>
       {chatMessages.length
         ? chatMessages.map((message) => (
-            <Message key={message.id} message={message} />
+            <Message
+              key={message.id}
+              message={message}
+              dog={dog}
+              user={userInfo}
+            />
           ))
         : null}
     </List>

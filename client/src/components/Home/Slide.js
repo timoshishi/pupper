@@ -14,7 +14,7 @@ import {
 } from '@material-ui/core';
 import { red } from '@material-ui/core/colors';
 import { Favorite, Share, ExpandMore, MoreVert } from '@material-ui/icons';
-import { InterestChips } from '../CreateProfile';
+import { InterestsStep } from '../CreateProfile';
 import UserContext from '../../context/user/userContext';
 
 const zipApiKey = process.env.REACT_APP_ZIP_API_KEY;
@@ -84,7 +84,7 @@ const Slide = ({ dog }) => {
       />
       <CardContent>
         <Typography>{dog.breed}</Typography>
-        <InterestChips interests={dog.interests} />
+        <InterestsStep interests={dog.interests} isForm={false} />
         <Typography
           variant='body2'
           color='textSecondary'

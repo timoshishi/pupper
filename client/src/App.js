@@ -1,5 +1,4 @@
 import React from 'react';
-import './App.css';
 import { Switch, Route, withRouter } from 'react-router-dom';
 import { NavBar, Footer, Loading } from './components/index.js';
 import Landing from './views/Landing';
@@ -8,7 +7,7 @@ import ProtectedRoute from './auth/ProtectedRoute';
 import { useAuth0 } from '@auth0/auth0-react';
 import { Container } from '@material-ui/core';
 import CreateProfile from './views/CreateProfile';
-import { Chat, Matches } from './views';
+import { Chat, Matches, Profile } from './views';
 
 function App() {
   const { isLoading, isAuthenticated } = useAuth0();
@@ -31,6 +30,7 @@ function App() {
           />
           <ProtectedRoute path='/matches' exact component={Matches} />
           <ProtectedRoute path='/chat' component={Chat} />
+          <ProtectedRoute patch='/profile' component={Profile} />
         </Switch>
         <Footer />
       </Container>

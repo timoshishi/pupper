@@ -36,7 +36,7 @@ const UserState = (props) => {
           type: GET_USER_INFO,
           payload: data,
         });
-        history.push('/');
+        // history.push('/');
         return;
       }
     } catch (err) {

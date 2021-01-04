@@ -11,10 +11,15 @@ const getUserInfo = async (userId) => {
     const userInfo = res.rows[0];
     const interestsRes = await pool.query(interestsQueryString, [userId]);
     const interests = interestsRes.rows[0];
-
+    const filteredInterests = {};
+    Object.keys(interests).forEach((interest) => {
+      if (interest !== 'user_id' && interests[interest]) {
+        filteredInterests[interest] = interests[interest];
+      }
+    });
     return {
       ...userInfo,
-      interests,
+      interests: filteredInterests,
     };
   } catch (err) {
     return console.error('at getUserInfo', err.message);
