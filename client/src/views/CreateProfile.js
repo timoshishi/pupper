@@ -56,13 +56,6 @@ const CreateProfile = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const userInterests = {};
-    // transform booleans to insertable values
-    // Object.keys(interests).forEach((interest) =>
-    //   interests[interest]
-    //     ? (userInterests[interest] = 't')
-    //     : (userInterests[interest] = 'f')
-    // );
     const userObj = {
       ...userInfo,
       zip_code: parseInt(userInfo.zip_code),

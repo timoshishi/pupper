@@ -13,7 +13,7 @@ const DogInterests = ({ interests }) => {
         const name = interest.replaceAll('_', ' ');
         return (
           <Box m={0.5} key={i}>
-            <Chip label={name} color='primary' name={interest} />
+            <Chip label={name} color='primary' name={interest} size='small' />
           </Box>
         );
       })}

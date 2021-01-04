@@ -2,46 +2,21 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
-import Stepper from '@material-ui/core/Stepper';
-import Step from '@material-ui/core/Step';
-import StepLabel from '@material-ui/core/StepLabel';
-import Check from '@material-ui/icons/Check';
-import SettingsIcon from '@material-ui/icons/Settings';
-import GroupAddIcon from '@material-ui/icons/GroupAdd';
-import VideoLabelIcon from '@material-ui/icons/VideoLabel';
-import StepConnector from '@material-ui/core/StepConnector';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
-import AccessibilityNewIcon from '@material-ui/icons/AccessibilityNew';
 import {
   EmojiPeople,
   Widgets,
   SportsVolleyball,
-  SportsRounded,
+  Check,
 } from '@material-ui/icons';
-import { Box } from '@material-ui/core';
-// const QontoConnector = withStyles({
-//   alternativeLabel: {
-//     top: 10,
-//     left: 'calc(-50% + 16px)',
-//     right: 'calc(50% + 16px)',
-//   },
-//   active: {
-//     '& $line': {
-//       borderColor: '#784af4',
-//     },
-//   },
-//   completed: {
-//     '& $line': {
-//       borderColor: '#784af4',
-//     },
-//   },
-//   line: {
-//     borderColor: '#eaeaf0',
-//     borderTopWidth: 3,
-//     borderRadius: 1,
-//   },
-// })(StepConnector);
+import {
+  Box,
+  Stepper,
+  Step,
+  StepLabel,
+  StepConnector,
+  Button,
+  Typography,
+} from '@material-ui/core';
 
 const useQontoStepIconStyles = makeStyles({
   root: {
@@ -194,7 +169,7 @@ const useStyles = makeStyles((theme) => ({
 
 function getSteps() {
   return [
-    'Choose Your Flavor',
+    'What are you looking for?',
     'Tell us about yourself',
     'Select Your Interests',
   ];

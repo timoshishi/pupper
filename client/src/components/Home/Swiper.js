@@ -5,6 +5,7 @@ import { Swiper as ReactSwiper, SwiperSlide } from 'swiper/react';
 import 'swiper/swiper.scss';
 import '../../../node_modules/swiper/components/lazy/lazy.scss';
 import '../../../node_modules/swiper/components/lazy/lazy.min.css';
+import { Box } from '@material-ui/core';
 import Slide from './Slide';
 import DogsContext from '../../context/dogs/dogsContext';
 import ChatContext from '../../context/chat/chatContext';
@@ -20,23 +21,27 @@ const Swiper = ({ dogs }) => {
   const { incrementNewMessageCount, createMessage } = useContext(ChatContext);
   const { user } = useAuth0();
 
+  const puppyMessage = () => {
+    const messageObj = {
+      from_human: false,
+      user_id: user.sub,
+      dog_id: dogArr[0].dog_id,
+      body: woofBot(),
+    };
+    const timeout = Math.floor(Math.random() * (15000 - 3000) + 3000);
+    setTimeout(async () => {
+      await createMessage(messageObj);
+      incrementNewMessageCount();
+    }, timeout);
+  };
+
   const handleDogs = (dir) => {
     if (dir === 'prev') {
       createMatch(user.sub, dogArr[0].dog_id);
       incrementNewMatches();
-      //create a dummy message to user randomly
+      //create a dummy message to user randomly at a random interval
       if (Math.random() > 0.7) {
-        const messageObj = {
-          from_human: false,
-          user_id: user.sub,
-          dog_id: dogArr[0].dog_id,
-          body: woofBot(),
-        };
-        const timeout = Math.floor(Math.random() * (15000 - 3000) + 3000);
-        setTimeout(async () => {
-          await createMessage(messageObj);
-          incrementNewMessageCount();
-        }, timeout);
+        puppyMessage();
       }
       //reset the current dog that is in the swipe loop
       dogArr.splice(0, 1);
@@ -48,8 +53,7 @@ const Swiper = ({ dogs }) => {
   };
 
   return (
-    <div>
-      <h3>Swiper</h3>
+    <Box display='flex' align='center' my={5}>
       <ReactSwiper
         spaceBetween={20}
         slidesPerView={1}
@@ -70,7 +74,7 @@ const Swiper = ({ dogs }) => {
             })
           : null}
       </ReactSwiper>
-    </div>
+    </Box>
   );
 };
 

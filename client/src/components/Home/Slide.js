@@ -1,25 +1,27 @@
-import React from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
-import Card from '@material-ui/core/Card';
-import CardHeader from '@material-ui/core/CardHeader';
-import CardMedia from '@material-ui/core/CardMedia';
-import CardContent from '@material-ui/core/CardContent';
-import CardActions from '@material-ui/core/CardActions';
-import Collapse from '@material-ui/core/Collapse';
-import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
+import {
+  Card,
+  CardHeader,
+  CardMedia,
+  CardContent,
+  CardActions,
+  Collapse,
+  IconButton,
+  Typography,
+} from '@material-ui/core';
 import { red } from '@material-ui/core/colors';
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import ShareIcon from '@material-ui/icons/Share';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
+import { Favorite, Share, ExpandMore, MoreVert } from '@material-ui/icons';
 import { InterestChips } from '../CreateProfile';
+import UserContext from '../../context/user/userContext';
+
+const zipApiKey = process.env.REACT_APP_ZIP_API_KEY;
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    maxWidth: 345,
+    maxWidth: `80vh`,
   },
   media: {
     height: 0,
@@ -42,31 +44,46 @@ const useStyles = makeStyles((theme) => ({
 
 const Slide = ({ dog }) => {
   const classes = useStyles();
-  const [expanded, setExpanded] = React.useState(false);
-
+  const [expanded, setExpanded] = useState(false);
+  const [distance, setDistance] = useState(null);
+  const { userInfo } = useContext(UserContext);
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
+  const getDistance = async () => {
+    const proxyUrl = 'https://secure-island-98608.herokuapp.com/';
+    var url = `https://www.zipcodeapi.com/rest/Lgz5EpY4q1TDKZbcPU4zfombbq4FdIwQV6lEDMgVNUsydGdkYsGzvudkDr1YNmLh/distance.json/48104/${dog.zip_code}/mile`;
 
+    try {
+      const response = await fetch(proxyUrl + url);
+      const { distance } = await response.json();
+      setDistance(distance);
+      await console.log({ distance });
+    } catch (err) {
+      console.error('Error @getDistance', err.message);
+    }
+  };
+  useEffect(() => {
+    // getDistance();
+  }, [dog]);
   return (
     <Card className={classes.root}>
-      <CardHeader
-        action={
-          <IconButton aria-label='settings'>
-            <MoreVertIcon />
-          </IconButton>
-        }
-        title={dog.name}
-        subheader={dog.title}
-      />
       <CardMedia
         className={classes.media}
         image={dog.photos[0]}
         title='puppy'
       />
+      <CardHeader
+        action={
+          <IconButton aria-label='settings'>
+            <MoreVert />
+          </IconButton>
+        }
+        title={dog.name}
+        subheader={dog.title}
+      />
       <CardContent>
         <Typography>{dog.breed}</Typography>
-        <Typography>Color: {dog.color}</Typography>
         <InterestChips interests={dog.interests} />
         <Typography
           variant='body2'
@@ -75,10 +92,10 @@ const Slide = ({ dog }) => {
       </CardContent>
       <CardActions disableSpacing>
         <IconButton aria-label='add to favorites'>
-          <FavoriteIcon />
+          <Favorite />
         </IconButton>
         <IconButton aria-label='share'>
-          <ShareIcon />
+          <Share />
         </IconButton>
         <IconButton
           className={clsx(classes.expand, {
@@ -87,7 +104,7 @@ const Slide = ({ dog }) => {
           onClick={handleExpandClick}
           aria-expanded={expanded}
           aria-label='show more'>
-          <ExpandMoreIcon />
+          <ExpandMore />
         </IconButton>
       </CardActions>
       <Collapse in={expanded} timeout='auto' unmountOnExit>

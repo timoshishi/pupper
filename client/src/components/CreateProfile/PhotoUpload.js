@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
-import { Button, Card, Typography, CardMedia, Box } from '@material-ui/core';
+import { Button, Typography, Box } from '@material-ui/core';
 import PropTypes from 'prop-types';
+
 const PhotoUpload = ({ userInfo, setUserInfo }) => {
   const serverUrl = process.env.REACT_APP_SERVER_URL;
   const { getAccessTokenSilently, user } = useAuth0();
@@ -57,9 +58,9 @@ const PhotoUpload = ({ userInfo, setUserInfo }) => {
         <Box marginTop='3rem'>
           <Button
             onClick={handleImageSubmit}
-            disabled={imageUrl ? true : false}
             color='primary'
-            variant='outlined'>
+            variant='outlined'
+            disabled={!image}>
             Add Photo
           </Button>
         </Box>
