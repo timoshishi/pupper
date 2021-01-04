@@ -12,6 +12,7 @@ import ChatContext from '../../context/chat/chatContext';
 import { useAuth0 } from '@auth0/auth0-react';
 import woofBot from '../../utils/woofBot';
 import PuppyModal from '../PuppyPopup/PuppyModal';
+import LikeDislikeButtons from './LikeDislikeButtons';
 SwiperCore.use([Lazy]);
 
 const Swiper = ({ dogs }) => {
@@ -63,34 +64,42 @@ const Swiper = ({ dogs }) => {
   };
 
   return (
-    <Box display='flex' align='center' my={5}>
-      <PuppyModal
-        handleOpen={handleOpen}
-        handleClose={handleClose}
-        open={open}
-        dog={dog}
-      />
-      <ReactSwiper
-        spaceBetween={20}
-        slidesPerView={1}
-        onSlideChange={(swipe) => {
-          handleDogs(swipe.swipeDirection);
-        }}
-        onSwiper={(swiper) => {}}
-        preloadImages={false}
-        lazy={true}
-        loop={true}>
-        {currentDogs.length
-          ? currentDogs.map((dog) => {
-              return (
-                <SwiperSlide key={`img_src_${dog.dog_id}`}>
-                  <Slide dog={dog} setDog={setDog} handleOpen={handleOpen} />
-                </SwiperSlide>
-              );
-            })
-          : null}
-      </ReactSwiper>
-    </Box>
+    <>
+      <Box display='flex' align='center' my={5} style={{ zIndex: 1 }}>
+        <PuppyModal
+          handleOpen={handleOpen}
+          handleClose={handleClose}
+          open={open}
+          dog={dog}
+        />
+        <ReactSwiper
+          spaceBetween={20}
+          slidesPerView={1}
+          onSlideChange={(swipe) => {
+            handleDogs(swipe.swipeDirection);
+          }}
+          onSwiper={(swiper) => {
+            console.log({ swiper });
+          }}
+          preloadImages={false}
+          lazy={true}
+          loop={true}
+          style={{ zIndex: 1 }}>
+          {currentDogs.length
+            ? currentDogs.map((dog) => {
+                return (
+                  <SwiperSlide key={`img_src_${dog.dog_id}`}>
+                    <Slide dog={dog} setDog={setDog} handleOpen={handleOpen} />
+                    <Box style={{ marginTop: '-5rem' }}>
+                      <LikeDislikeButtons />
+                    </Box>
+                  </SwiperSlide>
+                );
+              })
+            : null}
+        </ReactSwiper>
+      </Box>
+    </>
   );
 };
 

@@ -18,9 +18,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const PuppyProfileModal = ({ handleOpen, handleClose, open, dog }) => {
+const PuppyProfileModal = ({ handleClose, open, dog }) => {
   const classes = useStyles();
-  console.log({ dog });
   /* IN PARENT COMPONENT  SEE MatchList.js for example
   const [open, setOpen] = useState(false);
   const [dog, setDog] = useState(null);

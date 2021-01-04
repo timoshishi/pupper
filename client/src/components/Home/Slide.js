@@ -10,23 +10,12 @@ const zipApiKey = process.env.REACT_APP_ZIP_API_KEY;
 const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: `80vw`,
+    minWidth: '80vw',
+    zIndex: 1,
   },
   media: {
     height: 0,
     paddingTop: '56.25%', // 16:9
-  },
-  expand: {
-    transform: 'rotate(0deg)',
-    marginLeft: 'auto',
-    transition: theme.transitions.create('transform', {
-      duration: theme.transitions.duration.shortest,
-    }),
-  },
-  expandOpen: {
-    transform: 'rotate(180deg)',
-  },
-  avatar: {
-    backgroundColor: red[500],
   },
   header: {
     marginTop: '-7rem',
@@ -54,7 +43,9 @@ const Slide = ({ dog, handleOpen }) => {
         }
         align='left'
         title={dog.name}
-        subheader={dog.title}
+        titleTypographyProps={{
+          variant: 'h3',
+        }}
         className={classes.header}
       />
     </Card>
