@@ -31,9 +31,14 @@ const getAllDogs = async () => {
 const createMatch = async (userId, dogId) => {
   try {
     const queryString =
+      'SELECT * FROM matches where user_id = $1 AND dog_id = $2';
+    const insertString =
       'INSERT INTO matches (user_id, dog_id, created_at) VALUES ($1, $2, $3)';
-    const now = new Date().toISOString();
-    await pool.query(queryString, [userId, dogId, now]);
+    const { rows } = await pool.query(queryString, [userId, dogId]);
+    if (!rows.length) {
+      const now = new Date().toISOString();
+      await pool.query(insertString, [userId, dogId, now]);
+    }
   } catch (err) {
     return console.error('at createMatch', err.message);
   }

@@ -16,9 +16,7 @@ const Matches = () => {
 
   return (
     <Box width='40vw'>
-      <Typography textAlign='center' variant='h5'>
-        Matches
-      </Typography>
+      <Typography variant='h5'>Matches</Typography>
       {matches.length ? (
         <MatchList
           matches={matches}
