@@ -1,6 +1,6 @@
 import React from 'react';
 import { Switch, Route, withRouter } from 'react-router-dom';
-import { NavBar, Footer, Loading } from './components/index.js';
+import { NavBar, Loading } from './components/index.js';
 import Landing from './views/Landing';
 import Home from './views/Home';
 import ProtectedRoute from './auth/ProtectedRoute';

@@ -46,7 +46,7 @@ const MessageInputArea = ({
       <Grid container style={{ padding: '20px' }}>
         <Grid item={true} xs={11}>
           <TextField
-            id='outlined-basic-email'
+            id='outlined-basic-message-input'
             label='Type Something'
             fullWidth
             value={messageBody}

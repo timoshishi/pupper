@@ -37,7 +37,7 @@ CREATE TABLE IF NOT EXISTS interests(
 CREATE TABLE IF NOT EXISTS matches(
   id serial primary key,
   user_id varchar(100) REFERENCES users ON DELETE CASCADE,
-  dog_id int UNIQUE REFERENCES dogs ON DELETE CASCADE,
+  dog_id int REFERENCES dogs ON DELETE CASCADE,
   created_at timestamptz,
     CONSTRAINT fk_user
       FOREIGN KEY(user_id)

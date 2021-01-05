@@ -1,12 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Paper, Grid, Divider, List, Box } from '@material-ui/core';
+import { Paper, Grid, Divider, List } from '@material-ui/core';
 import {
   UserItem,
   MessageInputArea,
   UserSearch,
   CurrentChat,
-  ChatHeader,
   UserList,
 } from '../components/Chat';
 import ChatContext from '../context/chat/chatContext';

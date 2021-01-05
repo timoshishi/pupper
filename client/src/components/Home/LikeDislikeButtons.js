@@ -1,8 +1,9 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { IconButton, Box } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { Done, Clear } from '@material-ui/icons';
+import PropTypes from 'prop-types';
+
 const useStyles = makeStyles((theme) => ({
   button: {
     borderRadius: '50%',
@@ -24,14 +25,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const LikeDislikeButtons = (props) => {
+const LikeDislikeButtons = () => {
   const classes = useStyles();
   return (
     <Box display='flex' justifyContent='center' align='center'>
-      <IconButton className={classes.button}>
+      <IconButton className={(classes.button, 'dislikeButton')}>
         <Clear className={classes.clear} />
       </IconButton>
-      <IconButton className={classes.button}>
+      <IconButton className={(classes.button, 'likeButton')}>
         <Done className={classes.done} />
       </IconButton>
     </Box>
@@ -39,5 +40,4 @@ const LikeDislikeButtons = (props) => {
 };
 
 LikeDislikeButtons.propTypes = {};
-
 export default LikeDislikeButtons;

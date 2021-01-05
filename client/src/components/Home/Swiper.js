@@ -1,10 +1,11 @@
 import React, { useState, useContext } from 'react';
-import SwiperCore, { Lazy } from 'swiper';
+import SwiperCore, { Lazy, Navigation } from 'swiper';
 import PropTypes from 'prop-types';
 import { Swiper as ReactSwiper, SwiperSlide } from 'swiper/react';
 import 'swiper/swiper.scss';
 import '../../../node_modules/swiper/components/lazy/lazy.scss';
 import '../../../node_modules/swiper/components/lazy/lazy.min.css';
+import 'swiper/components/navigation/navigation.scss';
 import { Box } from '@material-ui/core';
 import Slide from './Slide';
 import DogsContext from '../../context/dogs/dogsContext';
@@ -13,7 +14,7 @@ import { useAuth0 } from '@auth0/auth0-react';
 import woofBot from '../../utils/woofBot';
 import PuppyModal from '../PuppyPopup/PuppyModal';
 import LikeDislikeButtons from './LikeDislikeButtons';
-SwiperCore.use([Lazy]);
+SwiperCore.use([Lazy, Navigation]);
 
 const Swiper = ({ dogs }) => {
   const dogArr = [...dogs];
@@ -62,7 +63,22 @@ const Swiper = ({ dogs }) => {
       setCurrentDogs(dogArr.slice(0, 1));
     }
   };
-
+  const handleClick = (type) => {
+    if (type === 'like') {
+      createMatch(user.sub, dogArr[0].dog_id);
+      incrementNewMatches();
+      //create a dummy message to user randomly at a random interval
+      if (Math.random() > 0.7) {
+        puppyMessage();
+      }
+      //reset the current dog that is in the swipe loop
+      dogArr.splice(0, 1);
+      setCurrentDogs(dogArr.slice(0, 1));
+    } else {
+      dogArr.splice(0, 1);
+      setCurrentDogs(dogArr.slice(0, 1));
+    }
+  };
   return (
     <>
       <Box display='flex' align='center' my={5} style={{ zIndex: 1 }}>
@@ -78,13 +94,15 @@ const Swiper = ({ dogs }) => {
           onSlideChange={(swipe) => {
             handleDogs(swipe.swipeDirection);
           }}
-          onSwiper={(swiper) => {
-            console.log({ swiper });
-          }}
+          onSwiper={(swiper) => {}}
+          grabCursor={true}
           preloadImages={false}
           lazy={true}
           loop={true}
-          style={{ zIndex: 1 }}>
+          navigation={{
+            nextEl: '.likeButton',
+            prevEl: '.dislikeButton',
+          }}>
           {currentDogs.length
             ? currentDogs.map((dog) => {
                 return (
