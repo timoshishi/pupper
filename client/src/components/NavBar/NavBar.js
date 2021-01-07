@@ -18,6 +18,10 @@ const useStyles = makeStyles((theme) => ({
   },
   title: {
     flexGrow: 1,
+    marginLeft: '1rem',
+  },
+  logo: {
+    height: '2rem',
   },
 }));
 
@@ -28,11 +32,13 @@ const NavBar = () => {
     <div className={classes.root}>
       <AppBar position='static'>
         <Toolbar>
+          <Link to='/' style={{ textDecoration: 'none', color: 'white' }}>
+            <img src='puppy-svg.svg' alt='logo' className={classes.logo} />
+          </Link>
           <Typography variant='h6' className={classes.title}>
-            <Link to='/' style={{ textDecoration: 'none', color: 'white' }}>
-              Pupper
-            </Link>
+            Pupper
           </Typography>
+
           {isAuthenticated && <AuthNav />}
           <Box mx={2}>
             <AuthenticationButton color='white' />
