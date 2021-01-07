@@ -30,3 +30,5 @@ yarn-error.log*
 *.csv
 .env.dev.js
 .eslintcache
+utils/image-scraper/example.png
+utils/image-scraper/example.png

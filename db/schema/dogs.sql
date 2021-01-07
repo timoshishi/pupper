@@ -16,7 +16,7 @@ CREATE TABLE IF NOT EXISTS dogs(
 
 
 
-\copy dogs(
+COPY dogs(
   name,
   breed,
   color,

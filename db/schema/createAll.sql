@@ -3,6 +3,9 @@ DROP TABLE interests;
 DROP TABLE matches;
 DROP TABLE users;
 
+DROP TABLE dog_interests;
+DROP TABLE dogs;
+
 CREATE TABLE IF NOT EXISTS users(
   user_id varchar(100) UNIQUE PRIMARY KEY,
   email varchar(100),
@@ -13,6 +16,20 @@ CREATE TABLE IF NOT EXISTS users(
   photos text[],
   created_at timestamptz,
   last_login timestamptz
+);
+
+CREATE TABLE IF NOT EXISTS dogs(
+  dog_id serial primary key,
+  name varchar(100),
+  breed varchar(100),
+  color varchar(100),
+  adult_weight int,
+  age int,
+  about varchar(1000),
+  title varchar(100),
+  zip_code varchar(100),
+  photos text[9],
+  created_at timestamptz
 );
 
 
@@ -66,22 +83,21 @@ CREATE TABLE IF NOT EXISTS chat(
 -- ************** DOG STUFF! ******************** --
 -- ********************************************** --
 
-DROP TABLE dog_interests;
-DROP TABLE dogs;
-
-CREATE TABLE IF NOT EXISTS dogs(
-  dog_id serial primary key,
-  name varchar(100),
-  breed varchar(100),
-  color varchar(100),
-  adult_weight int,
-  age int,
-  about varchar(1000),
-  title varchar(100),
-  zip_code varchar(100),
-  photos text[9],
-  created_at timestamptz
-);
+--DROP TABLE dog_interests;
+--DROP TABLE dogs;
+-- CREATE TABLE IF NOT EXISTS dogs(
+--   dog_id serial primary key,
+--   name varchar(100),
+--   breed varchar(100),
+--   color varchar(100),
+--   adult_weight int,
+--   age int,
+--   about varchar(1000),
+--   title varchar(100),
+--   zip_code varchar(100),
+--   photos text[9],
+--   created_at timestamptz
+-- );
 
 
 CREATE TABLE IF NOT EXISTS dog_interests(
@@ -100,6 +116,5 @@ CREATE TABLE IF NOT EXISTS dog_interests(
       FOREIGN KEY(dog_id)
         REFERENCES dogs(dog_id)
 );
-\copy dog_interests from 'C:\Users\timfr\Documents\github\hackreactor\puppr\utils\data-generation\dummy\dog_interests.csv' CSV HEADER;
-
-\copy dogs from 'C:\Users\timfr\Documents\github\hackreactor\puppr\utils\data-generation\dummy\dogs.csv' CSV HEADER;
+--\copy dogs from 'C:\Users\timfr\Documents\github\hackreactor\puppr\utils\data-generation\dummy\dogs.csv' CSV HEADER;
+--\copy dog_interests from 'C:\Users\timfr\Documents\github\hackreactor\puppr\utils\data-generation\dummy\dog_interests.csv' CSV HEADER;

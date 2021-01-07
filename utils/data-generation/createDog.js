@@ -92,11 +92,10 @@ const createDog = (name) => {
     about: faker.lorem.sentences(),
     title: faker.lorem.sentence(),
     zip_code: zipCodeMaker(80001, 81658),
-    photo: `{https://puppr-photos.s3.us-east-2.amazonaws.com/${breed}.png}`,
+    photo: `{https://puppr-photos.s3.us-east-2.amazonaws.com/${name}.png}`,
     created_at: new Date().toISOString(),
   };
 };
-console.log(createDog('francis'));
 const dogs = dogNames.map((name) => createDog(name));
 const dogCsv = new ObjectsToCsv(dogs);
 dogCsv.toDisk('./dummy/dogs.csv');
