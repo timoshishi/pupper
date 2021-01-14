@@ -34,3 +34,4 @@ utils/image-scraper/example.png
 utils/image-scraper/example.png
  *.jar
 bfg-1.13.1.jar
+server/.env

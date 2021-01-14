@@ -109,7 +109,7 @@ const Swiper = ({ dogs }) => {
                   <SwiperSlide key={`img_src_${dog.dog_id}`}>
                     <Slide dog={dog} setDog={setDog} handleOpen={handleOpen} />
                     <Box style={{ marginTop: '-5rem' }}>
-                      <LikeDislikeButtons />
+                      <LikeDislikeButtons handleClick={handleClick} />
                     </Box>
                   </SwiperSlide>
                 );

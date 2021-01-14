@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, Box, Typography, CardMedia, Grid } from '@material-ui/core';
+import { Card, Box, Typography, CardMedia } from '@material-ui/core';
 import { SignupButton } from '../components/AuthButtons';
 import { makeStyles } from '@material-ui/core/styles';
 import LoginButton from '../components/AuthButtons/LoginButton';

@@ -3,7 +3,6 @@ import { IconButton, Box } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { Done, Clear } from '@material-ui/icons';
 import PropTypes from 'prop-types';
-
 const useStyles = makeStyles((theme) => ({
   button: {
     borderRadius: '50%',
@@ -25,19 +24,24 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const LikeDislikeButtons = () => {
+const LikeDislikeButtons = ({ handleClick }) => {
   const classes = useStyles();
   return (
     <Box display='flex' justifyContent='center' align='center'>
-      <IconButton className={(classes.button, 'dislikeButton')}>
+      <IconButton
+        className={(classes.button, 'dislikeButton')}
+        onClick={() => handleClick('like')}>
         <Clear className={classes.clear} />
       </IconButton>
-      <IconButton className={(classes.button, 'likeButton')}>
+      <IconButton
+        className={(classes.button, 'likeButton')}
+        onClick={handleClick}>
         <Done className={classes.done} />
       </IconButton>
     </Box>
   );
 };
-
-LikeDislikeButtons.propTypes = {};
+LikeDislikeButtons.propTypes = {
+  handleClick: PropTypes.func.isRequired,
+};
 export default LikeDislikeButtons;
