@@ -118,7 +118,7 @@ const imageScraper = async () => {
           method: 'POST',
           body: formData,
           headers: {
-            Authorization: `Bearer ADD_TOKEN_HERE`,
+            Authorization: `Bearer ${process.env.token}`,
           },
         };
         //send in the dog name as a parameter which the server will use to name the photo when it is uploaded to s3
