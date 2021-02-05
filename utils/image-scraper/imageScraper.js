@@ -118,7 +118,7 @@ const imageScraper = async () => {
           method: 'POST',
           body: formData,
           headers: {
-            Authorization: `Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6ImNfT2JBTmNkTlpNT0RlZGhEWndHdyJ9.eyJpc3MiOiJodHRwczovL2Rldi1pdXhpaGQ0NS51cy5hdXRoMC5jb20vIiwic3ViIjoiZ29vZ2xlLW9hdXRoMnwxMTE2Nzk2MzkwMzkxODEwMjI2MDUiLCJhdWQiOlsiaHR0cHM6Ly90aW1vc2hpc2hpLXB1cHByLmhlcm9rdWFwcC5jb20vIiwiaHR0cHM6Ly9kZXYtaXV4aWhkNDUudXMuYXV0aDAuY29tL3VzZXJpbmZvIl0sImlhdCI6MTYxMDA0MTY2NiwiZXhwIjoxNjEwMTI4MDY2LCJhenAiOiJRcnBVRjM1N0hLRFFQdUw3YmQ5MEdTbTZHY3dYeVhCUSIsInNjb3BlIjoib3BlbmlkIHByb2ZpbGUgZW1haWwifQ.m026QSXoB2pJyiF7VBnBJNfJA01sBm8n_8JyzvriumCBwHXmr1RFmR_9gJsLv_IAsoHifekr7GfIAYiXmNYh_1HY_MnkR8tqJhouA0NryQyFO-MyUl531C1cOGtIScPbHvpX2IKhM7lsiBHBqVfXCtKg6dtj2x5nSD4qCHXF95H1ArxeJ7hAakJXkhMGVIUL25MRg3dX7IPpI2zeg36UaH92Qkzjqqq5Z07AMOXx12Z-8mnCO7rXOpvR9fvjMxihli4LyAFqxJj0Cc4l2Rizh0KSN7hjdB_E6v7O93rp9xzna0jPIEujArEEdlVjVls2fU30Zo4SxxaP5S9nTVpAMg`,
+            Authorization: `Bearer ADD_TOKEN_HERE`,
           },
         };
         //send in the dog name as a parameter which the server will use to name the photo when it is uploaded to s3
