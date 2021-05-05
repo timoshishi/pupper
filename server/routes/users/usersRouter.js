@@ -32,6 +32,18 @@ usersRouter.get('/:id', checkJwt, async (req, res) => {
   }
 });
 
+promiseableFunction
+  .then((data) => data.json())
+  .then((data) => {
+    anotherfunc.then(data).then().then().catch;
+  })
+  .catch((err) => console.error(err));
+
+const data = await promiseableFunction();
+const json = await data.json();
+const returnedStuff = await anotherfunc(data);
+
+console.log(json);
 /* 
   CREATE USER 
   @Input: Object containing user info to go into user table as well as info for interests table

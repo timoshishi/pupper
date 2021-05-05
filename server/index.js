@@ -19,6 +19,7 @@ const {
 } = require('./routes/index.js');
 
 app.use('/api', apiRouter);
+
 apiRouter.use('/chat', chatRouter);
 apiRouter.use('/users', usersRouter);
 apiRouter.use('/dogs', dogsRouter);

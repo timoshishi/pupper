@@ -1,6 +1,8 @@
 # Pupper
 
-### Meet your new best friend
+### Meet your new best friend [Live](https://timoshishi-puppr.herokuapp.com/)
+
+[![MIT License](https://img.shields.io/apm/l/atomic-design-ui.svg?)](https://github.com/tterb/atomic-design-ui/blob/master/LICENSEs)
 
 ## Overview
 
@@ -15,10 +17,12 @@ connecting digitally during the pandemic. Puppies need love too.
 - Express and Node on the server side
 - Managed PostgreSQL back end
 
-### Other Tech
+### APIs
 
 - Deployed to Heroku
 - Auth0 and JSON webtokens for authentication
 - Amazon S3 for object storage
 - Material UI for quick prototyping
 - React Swiper
+- Puppeteer for image scraping
+- Faker for data generation

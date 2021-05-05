@@ -84,3 +84,16 @@ module.exports = {
   getUserInfo,
   createUser,
 };
+
+const getAllOrderUsers = async (orderIds) => {
+  const promises = orderIds.map((id) => {
+    const queryStr =
+      'SELECT u.*, o.order_id FROM users u LEFT JOIN orders o ON u.user_id = o.user_id WHERE o.order_id = $1';
+    return db.query(queryStr, [id]);
+  });
+  try {
+    const allData = await Promise.all(promises);
+  } catch (err) {
+    /* DO SOMETHING WITH YOUR ERROR */
+  }
+};
