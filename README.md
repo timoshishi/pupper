@@ -1,6 +1,6 @@
 # Pupper
 
-### Meet your new best friend [Live](https://timoshishi-puppr.herokuapp.com/)
+### Meet your new best friend
 
 [![MIT License](https://img.shields.io/apm/l/atomic-design-ui.svg?)](https://github.com/tterb/atomic-design-ui/blob/master/LICENSEs)
 
